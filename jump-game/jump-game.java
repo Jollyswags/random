@@ -1,6 +1,6 @@
 class Solution {
     public boolean canJump(int[] nums) {
-              int n = nums.length - 1;
+         int n = nums.length - 1;
 
     int goodIndex = n;
     for (int i = n; i >= 0; i--) {
@@ -8,6 +8,6 @@ class Solution {
             goodIndex = i;
         }
     }
-    return goodIndex == 0;
+    return goodIndex == 0;  
     }
 }
