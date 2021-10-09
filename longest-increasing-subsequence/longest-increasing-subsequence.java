@@ -1,5 +1,5 @@
 class Solution {
-    public int lengthOfLIS(int[] nums) {
+   public int lengthOfLIS(int[] nums) {
         ArrayList<Integer> sub = new ArrayList<>();
         sub.add(nums[0]);
         
