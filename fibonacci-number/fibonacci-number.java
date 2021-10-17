@@ -17,4 +17,6 @@ class Solution {
         return dp[1];
         
     }
+    //tc=o(n)
+    //sc=o(1)
 }
