@@ -1,45 +1,66 @@
 class Solution {
-      private boolean isValid(int r, int c, int R, int C) {
-        return 0 <= r && r < R && 0 <= c && c < C;
-    }
-
+    
+    private static final int[][] directions = 
+        new int[][]{{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+    
+    
     public int shortestPathBinaryMatrix(int[][] grid) {
-
-        if (grid == null || grid.length == 0 || grid[0][0] == 1) {
+        
+        // Firstly, we need to check that the start and target cells are open.
+        if (grid[0][0] != 0 || grid[grid.length - 1][grid[0].length - 1] != 0) {
             return -1;
         }
-        int[] dr = {-1, -1, -1, 1, 1, 1, 0, 0};
-        int[] dc = {-1, 0, 1, -1, 0, 1, 1, -1};
-        int ROW = 0;
-        int COL = 1;
-        int R = grid.length;
-        int C = grid[0].length;
-        Queue<int[]> queue = new LinkedList<>();
+        
+        // Set up the BFS.
+        Queue<int[]> queue = new ArrayDeque<>();
         queue.add(new int[]{0, 0});
-        int distance = 1;
-        int currLevel = 1;
-        int nextLevel = 0;
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        visited[0][0] = true;
+        int currentDistance = 1;
+        
+        // Carry out the BFS
         while (!queue.isEmpty()) {
-            int[] curr = queue.remove();
-            currLevel--;
-            if (curr[0] == R - 1 && curr[1] == C - 1) {
-                return distance;
-            }
-            for (int k = 0; k < 8; k++) {
-                int fr = dr[k] + curr[ROW];
-                int fc = dc[k] + curr[COL];
-                if (isValid(fr, fc, R, C) && grid[fr][fc] == 0) {
-                    grid[fr][fc] = 1;
-                    nextLevel++;
-                    queue.add(new int[]{fr, fc});
+            
+            // Process all nodes at the current distance from the top-left cell.
+            int nodesAtCurrentDistance = queue.size();
+            for (int i = 0; i < nodesAtCurrentDistance; i++) {
+                int[] cell = queue.remove();
+                int row = cell[0];
+                int col = cell[1];
+                if (row == grid.length - 1 && col == grid[0].length - 1) {
+                    return currentDistance;
+                }
+                for (int[] neighbour : getNeighbours(row, col, grid)) {
+                    int neighbourRow = neighbour[0];
+                    int neighbourCol = neighbour[1];
+                    if (visited[neighbourRow][neighbourCol]) {
+                        continue;
+                    }
+                    visited[neighbourRow][neighbourCol] = true;
+                    queue.add(new int[]{neighbourRow, neighbourCol});
                 }
             }
-            if (currLevel == 0) {
-                currLevel = nextLevel;
-                nextLevel = 0;
-                distance++;
-            }
+            // We'll now be processing all nodes at current_distance + 1
+            currentDistance++;
         }
-        return -1;
+        
+        // The target was unreachable.
+        return -1;  
     }
+    
+    private List<int[]> getNeighbours(int row, int col, int[][] grid) {
+        List<int[]> neighbours = new ArrayList<>();
+        for (int i = 0; i < directions.length; i++) {
+            int newRow = row + directions[i][0];
+            int newCol = col + directions[i][1];
+            if (newRow < 0 || newCol < 0 || newRow >= grid.length 
+                    || newCol >= grid[0].length
+                    || grid[newRow][newCol] != 0) {
+                continue;    
+            }
+            neighbours.add(new int[]{newRow, newCol});
+        }
+        return neighbours; 
+    }
+    
 }
