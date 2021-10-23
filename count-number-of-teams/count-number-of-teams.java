@@ -17,3 +17,5 @@ class Solution {
     return res;
     }
 }
+//O(N^2)
+//O(1)
