@@ -47,7 +47,7 @@ Time Complexity: O(N^2) for input string of length N. The total time taken in th
 
 The number of possible palindromic centers we process.
 How much time we spend processing each center.
-The number of possible palindromic centers is 2N-12N−1: there are NN single character centers and N-1N−1 consecutive character pairs as centers.
+The number of possible palindromic centers is 2N-12N−1: there are NN single character centers and N-1 consecutive character pairs as centers.
 
 Each center can potentially expand to the length of the string, so time spent on each center is linear on average. Thus total time spent is N (2N-1) ~ N(2N−1)≃N^2
  .
