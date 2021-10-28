@@ -1,15 +1,11 @@
 class Solution {
     public int rob(int[] nums) {
-        int n=nums.length;
-        int robnextone=0,robnext=nums[n-1];
-        int i,current;
+        int i,n=nums.length;
+        int maxprofit[]=new int[n+1];
+        maxprofit[n]=0;
+        maxprofit[n-1]=nums[n-1];
         for(i=n-2;i>=0;i--)
-        {
-            current=Math.max(robnext,robnextone+nums[i]);
-            robnextone=robnext;
-            robnext=current;
-        }
-        return robnext;
-        
+            maxprofit[i]=Math.max(maxprofit[i+1],maxprofit[i+2]+nums[i]);
+        return maxprofit[0];
     }
 }
