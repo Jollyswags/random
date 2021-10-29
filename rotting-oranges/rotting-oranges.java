@@ -1,5 +1,5 @@
 class Solution {
-    public int orangesRotting(int[][] grid) {
+       public int orangesRotting(int[][] grid) {
         Queue<Pair<Integer, Integer>> queue = new ArrayDeque();
 
         // Step 1). build the initial set of rotten oranges
@@ -54,5 +54,3 @@ class Solution {
         return freshOranges == 0 ? minutesElapsed : -1;
     }
 }
-//o(n)
-//o(n)
