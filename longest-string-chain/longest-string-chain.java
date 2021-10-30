@@ -1,42 +1,39 @@
+
 class Solution {
-    public int longestStrChain(String[] words) {
-             Map<String, Integer> dp = new HashMap<>();
 
-        // Sorting the list in terms of the word length.
-        Arrays.sort(words, (a, b) -> a.length() - b.length());
-
-        int longestWordSequenceLength = 1;
-
-        for (String word : words) {
-            int presentLength = 1;
-            // Find all possible predecessors for the current word by removing one letter at a time.
-            for (int i = 0; i < word.length(); i++) {
-                StringBuilder temp = new StringBuilder(word);
-                temp.deleteCharAt(i);
-                String predecessor = temp.toString();
-                int previousLength = dp.getOrDefault(predecessor, 0);
-                presentLength = Math.max(presentLength, previousLength + 1);
-            }
-            dp.put(word, presentLength);
-            longestWordSequenceLength = Math.max(longestWordSequenceLength, presentLength);
+    private int dfs(Set<String> words, Map<String, Integer> memo, String currentWord) {
+        // If the word is encountered previously we just return its value present in the map (memoization).
+        if (memo.containsKey(currentWord)) {
+            return memo.get(currentWord);
         }
-        return longestWordSequenceLength;
+        // This stores the maximum length of word sequence possible with the 'currentWord' as the
+        int maxLength = 1;
+        StringBuilder sb = new StringBuilder(currentWord);
+
+        // creating all possible strings taking out one character at a time from the `currentWord`
+        for (int i = 0; i < currentWord.length(); i++) {
+            sb.deleteCharAt(i);
+            String newWord = sb.toString();
+            // If the new word formed is present in the list, we do a dfs search with this newWord.
+            if (words.contains(newWord)) {
+                int currentLength = 1 + dfs(words, memo, newWord);
+                maxLength = Math.max(maxLength, currentLength);
+            }
+            sb.insert(i, currentWord.charAt(i));
+        }
+        memo.put(currentWord, maxLength);
+
+        return maxLength;
     }
-    
+
+    public int longestStrChain(String[] words) {
+        Map<String, Integer> memo = new HashMap<>();
+        Set<String> wordsPresent = new HashSet<>();
+        Collections.addAll(wordsPresent, words);
+        int ans = 0;
+        for (String word : words) {
+            ans = Math.max(ans, dfs(wordsPresent, memo, word));
+        }
+        return ans;
+    }
 }
-/*et NN be the number of words in the list and LL be the maximum possible length of a word.
-
-Time complexity O(N⋅logN+NL^2)=N(logN+L^2)
- )).
-
-Sorting a list of size NN takes O(N \log N)O(NlogN) time. Next, we use two for loops in which the outer loop runs for O(N)O(N) iterations and the inner loop runs for O(L ^ 2)O(L 
-2
- ) iterations in the worst case scenario. The first LL is for the inner loop and the second LL is for creating each predecessor. Thus the overall time complexity is O(N \log N + (N \cdot L ^ 2))O(NlogN+(N⋅L 
-2
- )) which equals O(N \cdot (\log N + L ^ 2))O(N⋅(logN+L 
-2
- )).
-
-Space complexity: O(N).
-
-We use a map to store the length of the longest sequence formed with each of the NN words as the end word.*/
