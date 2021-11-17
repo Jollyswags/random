@@ -1,6 +1,6 @@
 class Solution {
     public int uniquePaths(int m, int n) {
-         int[][] d = new int[m][n];
+          int[][] d = new int[m][n];
 
     for(int[] arr : d) {
       Arrays.fill(arr, 1);
@@ -11,5 +11,6 @@ class Solution {
       }
     }
     return d[m - 1][n - 1];
+        
     }
 }
