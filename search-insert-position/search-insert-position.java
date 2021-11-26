@@ -1,5 +1,5 @@
 class Solution {
-    public int searchInsert(int[] nums, int target) {
+  public int searchInsert(int[] nums, int target) {
         int r=bs(nums,target,0,nums.length-1);
         return r;
         
