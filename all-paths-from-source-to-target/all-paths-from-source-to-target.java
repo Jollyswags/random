@@ -32,5 +32,4 @@ class Solution {
         this.backtrack(0, path);
         return this.results;
     }
-    
 }
