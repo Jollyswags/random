@@ -1,19 +1,28 @@
 class Solution {
-    public List<List<Integer>> subsets(int[] nums) {
-          List<List<Integer>> output = new ArrayList();
-    int n = nums.length;
+  List<List<Integer>> output = new ArrayList();
+  int n, k;
 
-    for (int i = (int)Math.pow(2, n); i < (int)Math.pow(2, n + 1); ++i) {
-      // generate bitmask, from 0..00 to 1..11
-      String bitmask = Integer.toBinaryString(i).substring(1);
+  public void backtrack(int first, ArrayList<Integer> curr, int[] nums) {
+    // if the combination is done
+    if (curr.size() == k) {
+      output.add(new ArrayList(curr));
+      return;
+    }
+    for (int i = first; i < n; ++i) {
+      // add i into the current combination
+      curr.add(nums[i]);
+      // use next integers to complete the combination
+      backtrack(i + 1, curr, nums);
+      // backtrack
+      curr.remove(curr.size() - 1);
+    }
+  }
 
-      // append subset corresponding to that bitmask
-      List<Integer> curr = new ArrayList();
-      for (int j = 0; j < n; ++j) {
-        if (bitmask.charAt(j) == '1') curr.add(nums[j]);
-      }
-      output.add(curr);
+  public List<List<Integer>> subsets(int[] nums) {
+    n = nums.length;
+    for (k = 0; k < n + 1; ++k) {
+      backtrack(0, new ArrayList<Integer>(), nums);
     }
     return output;
-    }
+  }
 }
