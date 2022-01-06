@@ -14,55 +14,43 @@
  * }
  */
 class Solution {
-     private boolean srcFound, destFound;
-    private StringBuilder sb1 = new StringBuilder();
-    private StringBuilder sb2 = new StringBuilder();
+    TreeNode start = null;
+    TreeNode end = null;
     
-    public String getDirections(TreeNode root, int start, int dest) {
-        if (root.val == start) srcFound = true;
-        if (root.val == dest) destFound = true;
+    public String getDirections(TreeNode root, int startValue, int destValue) {
         
-        dfs(root.left, true, start, dest);
+        if (root == null) return "";
+        StringBuilder startSB = new StringBuilder();
+        StringBuilder destSB = new StringBuilder();
         
-        if (!srcFound) deleteLastChar(sb1); 
-        if (!destFound) deleteLastChar(sb2);  
-
-        dfs(root.right, false, start, dest);
+        find(root, startValue, startSB);
+        find(root, destValue, destSB);
         
-        int delCount = 0;
-        for (int i = 0; i < Integer.min(sb1.length(), sb2.length()); i++, delCount++) {
-            if (sb1.charAt(i) != sb2.charAt(i)) break;
+        int i = 0, maxi = Math.min(startSB.length(), destSB.length());
+        while (i < maxi) {
+            int len1 = startSB.length();
+            int len2 = destSB.length();
+            if (startSB.charAt(len1 - 1) == destSB.charAt(len2 - 1)) {
+                startSB.setLength(len1-1);
+                destSB.setLength(len2-1);
+            }
+            
+            i++;
         }
         
-        String s = "U".repeat(sb1.length() - delCount);
-        return s + sb2.substring(delCount).toString();
+        String left = "U".repeat(startSB.length());
+        return left + destSB.reverse().toString();
     }
     
-    private boolean dfs(TreeNode node, boolean isLeft, int start, int dest) {
-        if (node == null) return false;
+    private boolean find(TreeNode node, int value, StringBuilder sb) {
+        if (node.val == value) {
+            return true;
+        } else if (node.left != null && find(node.left, value, sb)) {
+            sb.append('L');
+        } else if (node.right != null && find(node.right, value, sb)) {
+            sb.append('R');
+        }
         
-        if (!srcFound) sb1.append(isLeft ? 'L' : 'R');
-        if (!destFound) sb2.append(isLeft ? 'L' : 'R');
-        
-        if (node.val == start) srcFound = true;
-        else if (node.val == dest) destFound = true;
-        
-        if (srcFound && destFound) return true;
-        
-        if (dfs(node.left, true, start, dest)) return true;
-        
-        if (node.left != null && !srcFound) deleteLastChar(sb1);
-        if (node.left != null && !destFound) deleteLastChar(sb2);
-        
-        if (dfs(node.right, false, start, dest)) return true;
-        
-        if (node.right != null && !srcFound) deleteLastChar(sb1);
-        if (node.right != null && !destFound) deleteLastChar(sb2);
-        
-        return false;
-    }
-    
-    private void deleteLastChar(StringBuilder sb) {
-        if (sb.length() > 0) sb.deleteCharAt(sb.length() - 1);
+        return sb.length() > 0;
     }
 }
