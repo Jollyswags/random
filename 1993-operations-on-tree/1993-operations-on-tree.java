@@ -1,81 +1,64 @@
 class LockingTree {
 
-    ArrayList<Integer> [] decendants = null;
-    int[] lockStatus = null;
-    int[] parent = null;
-    
+     int[] p;
+    Map<Integer, Integer> map = new HashMap<>();
+    Map<Integer, List<Integer>> children = new HashMap<>();
     public LockingTree(int[] parent) {
-        int n = parent.length;
-        
-        this.parent = parent;
-        decendants = new ArrayList[n];
-        lockStatus = new int[n];
-        
-        for(int i=0; i<n; i++)
-        decendants[i] =  new ArrayList<>();            
-        
-        fillDecendants();
-    }
-    
-    private void fillDecendants(){
-        for(int i=1; i<parent.length; i++){
-            decendants[parent[i]].add(i);
+        p = parent;
+        for(int i = 0; i < p.length; i ++) {
+            children.put(i, new ArrayList<>());
+        }
+        for(int i = 1; i < p.length; i ++) {
+            children.get(p[i]).add(i);
         }
     }
     
     public boolean lock(int num, int user) {
-        if(lockStatus[num]!=0) return false;
-        
-        lockStatus[num] = user;
-        
-        return true;
+        if(!map.containsKey(num)) {
+            map.put(num, user);
+            return true;
+        } 
+        return false;
     }
     
     public boolean unlock(int num, int user) {
-        if(lockStatus[num]!=user) return false;
-        
-        lockStatus[num] = 0;
-        
-        return true;
+        if(map.containsKey(num) && map.get(num) == user) {
+            map.remove(num);
+            return true;
+        }
+        return false;
     }
     
     public boolean upgrade(int num, int user) {
-        if(lockStatus[num]!=0 || hasLockedAncestors(num) || !hasLockedDecendants(num)) return false;
-        
-        lockStatus[num] = user;
-        unlockDecendants(num);
-        
+        //check the node
+        if(map.containsKey(num)) return false;
+        //check Ancestor
+        int ori = num;
+        while(p[num] != -1) {
+            if(map.get(p[num]) != null) return false;
+            num = p[num];
+        }
+        //check Decendant
+        Queue<Integer> q = new LinkedList<>();
+        List<Integer> child = children.get(ori);
+        if(child != null) {
+            for(int c : child) q.offer(c);
+        }
+        boolean lock = false;
+        while(!q.isEmpty()) {
+            int cur = q.poll();
+            if(map.get(cur) != null) {
+                lock = true;
+                map.remove(cur); // unlock
+            }
+            List<Integer> cc = children.get(cur);
+            if(cc != null) {
+                for(int c : cc) q.offer(c);
+            }
+        }        
+        if(!lock) return false;
+        map.put(ori, user); // lock the original node
         return true;
-        
-    }
-    
-    private void unlockDecendants(int num){
-        
-         for(int i=0; i<decendants[num].size(); i++){
-             int decendant = decendants[num].get(i);
-             lockStatus[decendant] = 0;
-             unlockDecendants(decendant);
-        }
-    }
-    
-    private boolean hasLockedDecendants(int num){
-        if(lockStatus[num] != 0) return true;
-        
-        for(int i=0; i<decendants[num].size(); i++){
-            if(hasLockedDecendants(decendants[num].get(i))) return true;
-        }
-        
-        return false;
-    }
-    
-    private boolean hasLockedAncestors(int num){
-        int n = num;
-        while(parent[n]!=-1){
-            n = parent[n];
-            if(lockStatus[n] != 0) return true;
-        }
-        
-        return false;
     }
 }
 
