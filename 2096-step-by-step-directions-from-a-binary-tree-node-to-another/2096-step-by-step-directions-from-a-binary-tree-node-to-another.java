@@ -30,7 +30,8 @@ class Solution {
         while (i < maxi) {
             int len1 = startSB.length();
             int len2 = destSB.length();
-            if (startSB.charAt(len1 - 1) == destSB.charAt(len2 - 1)) {
+            if (startSB.charAt(len1 - 1) == destSB.charAt(len2 - 1)) 
+            {
                 startSB.setLength(len1-1);
                 destSB.setLength(len2-1);
             }
