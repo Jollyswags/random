@@ -45,7 +45,7 @@ class Solution {
         int n = nums.length;
         LinkedList<Integer>[] tree = new LinkedList[n];
        
-        for(int i =0 ; i < tree.length; i++) tree[i] = new LinkedList<>();//create graph from input
+        for(int i =0 ; i < n; i++) tree[i] = new LinkedList<>();//create graph from input
         for(int edge[] : edges) {
             tree[edge[0]].add(edge[1]);
             tree[edge[1]].add(edge[0]);
