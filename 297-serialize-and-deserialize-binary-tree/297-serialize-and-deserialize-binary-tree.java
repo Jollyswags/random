@@ -9,53 +9,47 @@
  */
 public class Codec {
 
- // Encodes a tree to a single string.
+    // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        StringBuilder result = new StringBuilder();
-        preorder(root, result);
-        result.deleteCharAt(result.length() - 1);
-        
+        StringBuilder result=new StringBuilder();
+        preorder(root,result);
+        result.deleteCharAt(result.length()-1);
         return result.toString();
     }
-    
-    private void preorder(TreeNode node, StringBuilder curr) {
-        // base case
-        if(node == null) {
+    public void preorder(TreeNode root, StringBuilder curr)
+    {
+        if(root==null)
+        {
             curr.append('N');
             curr.append('.');
             return;
         }
-        
-        curr.append(node.val);
+        curr.append(root.val);
         curr.append('.');
-        
-        preorder(node.left, curr);
-        preorder(node.right, curr);
+        preorder(root.left,curr);
+        preorder(root.right,curr);
     }
-
+int idx=0;
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        String[] strVals = data.split("\\.");
-        
-        TreeNode root = helper(strVals);
+        String[] strvals=data.split("\\.");
+        TreeNode root=helper(strvals);
         return root;
     }
-    
-    int idx = 0;
-    private TreeNode helper(String[] strVals) {
-        // base case
-        String curr = strVals[idx];
-        if(curr.equals("N")) {
+    public TreeNode helper(String[] strvals)
+    {
+        String curr=strvals[idx];
+        if(curr.equals("N"))
+        {
             idx++;
             return null;
-        } else {
-            int num = Integer.valueOf(curr);
-            TreeNode node = new TreeNode(num);
-            idx++;
-            node.left = helper(strVals);
-            node.right = helper(strVals);
-            return node;
         }
+        int nums=Integer.parseInt(curr);
+        TreeNode root=new TreeNode(nums);
+        idx++;
+        root.left=helper(strvals);
+        root.right=helper(strvals);
+        return root;
     }
 }
 
