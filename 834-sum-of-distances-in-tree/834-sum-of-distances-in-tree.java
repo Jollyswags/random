@@ -32,7 +32,8 @@ class Solution {
     public void dfs2(int node, int parent) {
         for (int child: graph.get(node))
             if (child != parent) {
-                ans[child] = ans[node] - count[child] + N - count[child];
+                
+                ans[child] = ans[node] - count[child] - count[child] +N;
                 dfs2(child, node);
             }
     }
