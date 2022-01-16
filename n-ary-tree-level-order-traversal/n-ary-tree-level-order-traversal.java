@@ -18,23 +18,18 @@ class Node {
 */
 
 class Solution {
-
-    private List<List<Integer>> result = new ArrayList<>();
-
+    List<List<Integer>> ans=new ArrayList<>();
     public List<List<Integer>> levelOrder(Node root) {
-        if (root != null) traverseNode(root, 0);
-        return result;
+        if(root!=null)
+            helper(root,0);
+        return ans;
     }
-
-    private void traverseNode(Node node, int level) {
-        if (result.size() <= level) {
-            result.add(new ArrayList<>());
-        }
-        result.get(level).add(node.val);
-        for (Node child : node.children) {
-            traverseNode(child, level + 1);
-        }
+    public void helper(Node root, int level)
+    {
+        if(ans.size()<=level)
+            ans.add(new ArrayList<>());
+        ans.get(level).add(root.val);
+        for(Node child:root.children)
+            helper(child,level+1);
     }
 }
-//o(n)
-//o(log n) average; worst case o(n)
