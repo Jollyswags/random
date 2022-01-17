@@ -21,8 +21,9 @@ class Solution {
     {
         if(curr==null)
             return prev;
-        curr.prev=prev;
         prev.next=curr;
+        curr.prev=prev;
+        
         Node temp=curr.next;
         Node child=dfs(curr,curr.child);
         curr.child=null;
