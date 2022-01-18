@@ -31,9 +31,7 @@ class Solution {
     {
         if(root==null)
             return false;
-        if(match(head,root))
-            return true;
-        return dfs(head,root.left) || dfs(head,root.right);
+        return match(head,root) || dfs(head,root.left) || dfs(head,root.right);
     }
     public boolean match(ListNode head, TreeNode root)
     {
