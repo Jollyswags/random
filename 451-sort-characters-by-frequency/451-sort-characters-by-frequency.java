@@ -1,6 +1,6 @@
 class Solution {
     public String frequencySort(String s) {
-        TreeMap<Character,Integer> tm = new TreeMap<>();
+        HashMap<Character,Integer> tm = new HashMap<>();
     Queue<Character> heap = new PriorityQueue<>((a,b) -> (tm.get(b)-tm.get(a)));   // sort the heap based on the freq of characters
     String ans = "";
 	
