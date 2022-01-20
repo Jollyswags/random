@@ -4,7 +4,7 @@ class Solution {
         if (k == 0) return new int[0]; 
         if (k == n) return nums;
         
-        PriorityQueue<int[]> minHeap = new PriorityQueue<>(Comparator.comparingInt(pair -> pair[0])); 
+        PriorityQueue<int[]> minHeap = new PriorityQueue<>((a,b)->a[0]-b[0]); 
         
         for(int i = 0; i < n; i++) {
             minHeap.add(new int[] {nums[i], i});
