@@ -10,7 +10,7 @@ PriorityQueue<Integer> pq=new PriorityQueue<>();
     public int add(int val) {
         pq.add(val);
         if(pq.size()>l)
-            pq.remove();
+            pq.poll();
         return pq.peek();
         
     }
