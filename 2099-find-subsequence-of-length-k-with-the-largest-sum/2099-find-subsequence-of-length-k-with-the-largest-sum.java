@@ -18,7 +18,7 @@ class Solution {
             res[i] = minHeap.poll();
         }
         
-        Arrays.sort(res, Comparator.comparingInt(pair -> pair[1]));
+        Arrays.sort(res, Comparator.comparingInt(pair->pair[1]));
         return Arrays.stream(res).map(pair -> pair[0]).mapToInt(Integer::intValue).toArray();
        
     }
