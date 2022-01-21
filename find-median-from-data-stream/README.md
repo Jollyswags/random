@@ -1,4 +1,4 @@
-<h2>295. Find Median from Data Stream</h2><h3>Hard</h3><hr><div><p>The <strong>median</strong> is the middle value in an ordered integer list. If the size of the list is even, there is no middle value and the median is the mean of the two middle values.</p>
+<h2>  Find Median from Data Stream</h2><hr><div><p>The <strong>median</strong> is the middle value in an ordered integer list. If the size of the list is even, there is no middle value and the median is the mean of the two middle values.</p>
 
 <ul>
 	<li>For example, for <code>arr = [2,3,4]</code>, the median is <code>3</code>.</li>
