@@ -6,7 +6,7 @@ class Solution {
             pq.offer(new int[]{nums[i],i});
         for(j=k;j<nums.length;j++)
         {
-            if(pq.peek()[0]<nums[j] || (pq.peek()[1]<j && pq.peek()[0]==nums[j]))
+            if(pq.peek()[0]<nums[j] || ( pq.peek()[0]==nums[j]))
             {
                 pq.poll();
                 pq.add(new int[]{nums[j],j});
