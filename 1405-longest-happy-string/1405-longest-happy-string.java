@@ -3,8 +3,8 @@ class Solution {
         char c;
         int count;
         CharCount(int count, char c) {
-            this.c = c;
             this.count = count;
+            this.c = c;
         }
     }
     
