@@ -4,7 +4,7 @@ class Solution {
             // compare the increase ratio
             double fir = ((double) a[0] + 1)/(a[1] + 1) - ((double) a[0])/(a[1]);
             double sec = ((double) b[0] + 1)/(b[1] + 1) - ((double) b[0])/(b[1]);
-            return Double.compare(sec, fir);
+            return Double.compare(sec,fir);
         });
         int n = classes.length;
         for (int i = 0; i<n; i++) {
