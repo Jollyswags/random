@@ -16,22 +16,23 @@ class Solution {
             map.get(v).add(u);
             
         }
-        Queue<Integer> q=new LinkedList<>();
+        Stack<Integer> q=new Stack();
         HashSet<Integer> vis=new HashSet<>();
         //set.add(start);
-        q.add(source);
+        q.push(source);
         while(!q.isEmpty())
         {
-            int u=q.poll();
+            int u=q.pop();
             vis.add(u);
             if(u==dest)
                 return true;
             for(int v:map.get(u))
             {
                if(!vis.contains(v))
-                q.add(v);
+                q.push(v);
             }
         }
         return false;
     }
+    // bfs
 }
