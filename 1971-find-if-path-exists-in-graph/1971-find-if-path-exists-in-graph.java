@@ -34,5 +34,5 @@ class Solution {
         }
         return false;
     }
-    // bfs
+    // dfs
 }
