@@ -1,35 +1,24 @@
 class Solution {
-  // DFS
-     private int target;
-    private int[][] graph;
-    private List<List<Integer>> results;
+ public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
+        List<List<Integer>> paths = new ArrayList<>();
+        if (graph == null || graph.length == 0) {
+            return paths;
+        }
 
-    protected void backtrack(int currNode, LinkedList<Integer> path) {
-        if (currNode == this.target) {
-            // Note: one should make a deep copy of the path
-            this.results.add(new ArrayList<Integer>(path));
-            return;
-        }
-        // explore the neighbor nodes one after another.
-        for (int nextNode : this.graph[currNode]) {
-            // mark the choice, before backtracking.
-            path.addLast(nextNode);
-            this.backtrack(nextNode, path);
-            // remove the previous choice, to try the next choice
-            path.removeLast();
-        }
+        dfs(graph, 0, new ArrayList<>(), paths);
+        return paths;
     }
 
-    public List<List<Integer>> allPathsSourceTarget(int[][] graph) {
-
-        this.target = graph.length - 1;
-        this.graph = graph;
-        this.results = new ArrayList<List<Integer>>();
-        // adopt the LinkedList for fast access to the tail element.
-        LinkedList<Integer> path = new LinkedList<Integer>();
-        path.addLast(0);
-        // kick of the backtracking, starting from the source (node 0)
-        this.backtrack(0, path);
-        return this.results;
+    void dfs(int[][] graph, int node, List<Integer> path, List<List<Integer>> paths) {
+        path.add(node);
+        if (node == graph.length - 1) {
+            paths.add(new ArrayList<>(path));
+            return;
+        }
+        int[] nextNodes = graph[node];
+        for (int nextNode: nextNodes) {
+            dfs(graph, nextNode, path, paths);
+            path.remove(path.size() - 1);
+        }
     }
 }
