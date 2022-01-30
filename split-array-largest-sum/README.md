@@ -1,4 +1,4 @@
-<h2>410. Split Array Largest Sum</h2><h3>Hard</h3><hr><div><p>Given an array <code>nums</code> which consists of non-negative integers and an integer <code>m</code>, you can split the array into <code>m</code> non-empty continuous subarrays.</p>
+<h2>  Split Array Largest Sum</h2><hr><div><p>Given an array <code>nums</code> which consists of non-negative integers and an integer <code>m</code>, you can split the array into <code>m</code> non-empty continuous subarrays.</p>
 
 <p>Write an algorithm to minimize the largest sum among these <code>m</code> subarrays.</p>
 
