@@ -22,3 +22,5 @@ class Solution {
         }
     }
 }
+//O(n-1)!
+//O(V^3)
