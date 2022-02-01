@@ -1,38 +1,41 @@
 class Solution {
-    public boolean validPath(int n, int[][] edges, int source, int dest) {
-        HashMap<Integer, List<Integer>> map=new HashMap<>();
-        int k=0;
-        int len=edges.length;
-       // System.out.println(len);
-        for(int edge[] : edges)
-        {
-            int u=edge[0];
-            int v=edge[1];
-            if(!map.containsKey(u))
-                map.put(u,new ArrayList<>());
-            map.get(u).add(v);
-            if(!map.containsKey(v))
-                map.put(v,new ArrayList<>());
-            map.get(v).add(u);
-            
+    public boolean validPath(int n, int[][] edges, int start, int end) {
+           List<List<Integer>> adjacency_list = new ArrayList<>();        
+        for (int i = 0; i < n; i++) {
+            adjacency_list.add(new ArrayList<>());
         }
-        Stack<Integer> q=new Stack();
-        HashSet<Integer> vis=new HashSet<>();
-        //set.add(start);
-        q.push(source);
-        while(!q.isEmpty())
-        {
-            int u=q.pop();
-            vis.add(u);
-            if(u==dest)
+        
+        for (int[] edge : edges) {
+            adjacency_list.get(edge[0]).add(edge[1]);
+            adjacency_list.get(edge[1]).add(edge[0]);
+        }
+        
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(start);
+        boolean seen[] = new boolean[n];
+        Arrays.fill(seen, false);
+        seen[start] = true;
+        
+        while (!queue.isEmpty()) {
+            // Get the current node.
+            int node = queue.poll();
+            
+            // Check if we have reached the target node.
+            if (node == end) {
                 return true;
-            for(int v:map.get(u))
-            {
-               if(!vis.contains(v))
-                q.push(v);
+            }
+            
+            // Add all neighbors to the stack.
+            for (int neighbor : adjacency_list.get(node)) {
+                // Check if neighbor has been added to the queue before.
+                if (!seen[neighbor]) {
+                    seen[neighbor] = true;
+                    queue.add(neighbor);
+                }
             }
         }
+        
         return false;
     }
-    // dfs
+    // bfs
 }
