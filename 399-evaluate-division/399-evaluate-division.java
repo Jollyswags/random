@@ -1,5 +1,5 @@
 class UF {
-    int[] parent;
+int parent[];
     int[] sz;
     double[] weight;
     int count;
@@ -14,7 +14,8 @@ class UF {
         }
         count = n;
     }
-    public int find(int p) {
+    public int find(int p) 
+    {
         if (p != parent[p]) {
             int origp = parent[p];
             parent[p] = find(parent[p]);
@@ -22,10 +23,12 @@ class UF {
         }
         return parent[p];
     }
-    public boolean connected(int p, int q) {
+    public boolean connected(int p, int q) 
+    {
         return find(p) == find(q);
     }
-    public double getQuotient(int p, int q) {
+    public double getQuotient(int p, int q) 
+    {
         if (connected(p, q))
             return weight[p] / weight[q];
         else
