@@ -1,16 +1,25 @@
 class Solution {
     public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
-        var pairCountBySum = new HashMap<Integer, Integer>();
-	for (var num1 : nums1)
-		for (var num2 : nums2)
-			pairCountBySum.compute(num1 + num2, (k, sumCount) -> sumCount == null ? 1 : sumCount + 1);
-
-	var fourSumCount = 0;
-	for (var num3 : nums3)
-		for (var num4 : nums4)
-			fourSumCount += pairCountBySum.getOrDefault(-(num3 + num4), 0);
-
-	return fourSumCount;
+    Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        Arrays.sort(nums3);
+        Arrays.sort(nums4);
+    int count = 0;
+		
+		var map = new HashMap<Integer, Integer>();
+		for (int m: nums1) {
+			for (int n: nums2) {
+				map.compute(m + n, (k, v) -> v == null ? 1: v + 1);
+			}
+		}
+		
+		for (int m: nums3) {
+			for (int n: nums4) {
+				count += map.getOrDefault(-(m + n),0);
+			}
+		}
+		
+		return count;
         
     }
 }
