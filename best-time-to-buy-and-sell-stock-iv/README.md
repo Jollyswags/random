@@ -1,4 +1,4 @@
-<h2>188. Best Time to Buy and Sell Stock IV</h2><h3>Hard</h3><hr><div><p>You are given an integer array <code>prices</code> where <code>prices[i]</code> is the price of a given stock on the <code>i<sup>th</sup></code> day, and an integer <code>k</code>.</p>
+<h2>  Best Time to Buy and Sell Stock IV</h2><hr><div><p>You are given an integer array <code>prices</code> where <code>prices[i]</code> is the price of a given stock on the <code>i<sup>th</sup></code> day, and an integer <code>k</code>.</p>
 
 <p>Find the maximum profit you can achieve. You may complete at most <code>k</code> transactions.</p>
 
