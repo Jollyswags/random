@@ -1,7 +1,6 @@
 class Solution {
   public int maxProfit(int[] prices) {
-
-    int sold = Integer.MIN_VALUE, held = Integer.MIN_VALUE, reset = 0;
+      int sold = Integer.MIN_VALUE, held = Integer.MIN_VALUE, reset = 0;
 
     for (int price : prices) {
       int preSold = sold;
@@ -12,5 +11,7 @@ class Solution {
     }
 
     return Math.max(sold, reset);
+  
+    
   }
 }
