@@ -1,42 +1,74 @@
 class Solution {
     public String smallestStringWithSwaps(String s, List<List<Integer>> pairs) {
-        int n = s.length();
-        char[] result = new char[n];
-    	int[] roots = new int[n], ranks = new int[n];
-    	for (int i = 0; i < n; i++) {
-    		roots[i] = i;
-    		ranks[i] = 1;
-    	}
-    	for (List<Integer> p : pairs)
-    		union(roots, ranks, p.get(0), p.get(1));
-        Map<Integer, int[]> map = new HashMap<>();
-    	for (int i = 0; i < n; i++)
-    		map.computeIfAbsent(find(roots, i), x -> new int[26])[s.charAt(i) - 'a']++;
-    	for (int i = 0; i < n; i++) {
-    		int[] array = map.get(find(roots, i));
-    		for (int j = 0; j < 26; j++)
-    			if (array[j] != 0) {
-    				result[i] = (char)('a' + j);
-    				array[j]--;
-    				break;
-    			}
-    	}
-    	return String.valueOf(result);
+        MyDSU myDSU = new MyDSU(s.length());
+        HashMap<Integer,List<Character>> map = new HashMap<>();
+        for(List<Integer> edge: pairs) {
+            int src = edge.get(0);
+            int des = edge.get(1);
+            myDSU.union(src,des);
+        }
+        for (int i = 0; i < s.length(); i++) {
+            int parent = myDSU.find(i);
+            if(!map.containsKey(parent)) map.put(parent, new ArrayList<>());
+            map.get(parent).add(s.charAt(i));
+        }
+        
+        StringBuilder result = new StringBuilder();
+        
+        for (List<Character> characters : map.values()) {
+            Collections.sort(characters, Collections.reverseOrder());
+        }
+        for (int i = 0; i < s.length(); i++) {
+            List<Character> characters = map.get(myDSU.find(i));
+            char currentMin = characters.remove(characters.size()-1);
+            //System.out.println(currentMin);
+            result.append(currentMin);
+        }
+        
+        return result.toString();
+        
     }
-    int find(int[] roots, int x) {
-    	if (x == roots[x])
-    		return x;
-    	return roots[x] = find(roots, roots[x]);
+}
+
+class MyDSU {
+    
+    int [] parent, rank;
+    int component;
+    public MyDSU(int size) {
+        parent = new int [size];
+        rank = new int [size];
+        
+        for(int i=0;i<size;i++) {
+            parent[i]=i;
+            rank[i]=0;
+        }
+        component = size;
     }
-    void union(int[] roots, int[] ranks, int x, int y) {
-    	int rootX = find(roots, x), rootY = find(roots, y);
-    	if (rootX != rootY)
-    		if (ranks[rootX] == ranks[rootY]) {
-    			roots[rootY] = rootX;
-    			ranks[rootX]++;
-    		} else if (ranks[rootX] > ranks[rootY])
-    			roots[rootY] = rootX;
-    		else
-    			roots[rootX] = rootY;
+    
+    public int find(int x) {
+        if(x == parent[x]) return x;
+        return parent[x] = find(parent[x]);
     }
+    
+    public boolean union(int x, int y) {
+        int parentX = find(x);
+        int parentY = find(y);
+        
+        if(parentX==parentY) return false;
+        if(rank[parentX]>rank[parentY]) {
+            parent[parentY]=parentX;
+        } else if (rank[parentY]>rank[parentX]) {
+            parent[parentX]=parentY;
+        } else {
+                parent[parentY]=parentX;
+                rank[parentX]++;
+        }
+        component--;
+        return true;
+    }
+    
+    public int getComponent() {
+        return component;
+    }
+    
 }
