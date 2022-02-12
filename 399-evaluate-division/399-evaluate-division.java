@@ -2,7 +2,7 @@ class UF {
 int parent[];
     int[] sz;
     double[] weight;
-    int count;
+    //int count;
     public UF(int n) {
         parent = new int[n];
         sz = new int[n];
@@ -12,7 +12,7 @@ int parent[];
             sz[i] = 1;
             weight[i] = 1.0;
         }
-        count = n;
+        //count = n;
     }
     public int find(int p) 
     {
@@ -21,6 +21,7 @@ int parent[];
             parent[p] = find(parent[p]);
             weight[p] *= weight[origp];
         }
+        
         return parent[p];
     }
     public boolean connected(int p, int q) 
@@ -48,7 +49,7 @@ int parent[];
             sz[rootP] += sz[rootQ];
             weight[rootQ] = weight[p] / value / weight[q];
         }
-        count--;
+        //count--;
     }
 }
 class Solution {
