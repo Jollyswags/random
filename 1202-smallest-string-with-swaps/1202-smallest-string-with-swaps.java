@@ -21,7 +21,7 @@ class Solution {
         for (int i = 0; i < s.length(); i++) {
             List<Character> characters = map.get(myDSU.find(i));
             char currentMin = characters.remove(characters.size()-1);
-            System.out.println(currentMin);
+            //System.out.println(currentMin);
             result.append(currentMin);
         }
         
