@@ -1,50 +1,37 @@
 class Solution {
-    private class Pair{
-        int node,weight;
-        Pair(int node,int weight){
-            this.node=node;
-            this.weight=weight;
+       public int findTheCity(int n, int[][] edges, int distanceThreshold) {
+        int INF = (int) 1e6;
+        int[][] graph = new int[n][n];
+        for( int i = 0; i < n ; i++){
+            Arrays.fill(graph[i],INF);
+            graph[i][i]  = 0;
         }
-    }
-    public int findTheCity(int n, int[][] edges, int distanceThreshold) {
-        ArrayList<ArrayList<Pair>> adj=new ArrayList<>();
-        for(int i=0;i<n;i++)
-            adj.add(new ArrayList<>());
-        for(int arr[]:edges){
-            int u=arr[0],v=arr[1],w=arr[2];
-            adj.get(u).add(new Pair(v,w));
-            adj.get(v).add(new Pair(u,w));
+        for( int[] edge : edges){
+            graph[edge[0]][edge[1]] = edge[2];
+            graph[edge[1]][edge[0]] = edge[2];
         }
-        int min=Integer.MAX_VALUE,city=-1;
-        for(int src=0;src<n;src++){
-            PriorityQueue<Pair> pq=new PriorityQueue<>((a,b)->{
-                return a.weight-b.weight;
-            });
-            boolean[] vis=new boolean[n];
-            int[] arr=new int[n];
-            Arrays.fill(arr,Integer.MAX_VALUE);
-            arr[src]=0;
-            int count=0;
-            pq.add(new Pair(src,0));
-            while(pq.size()>0){
-                Pair p=pq.remove();
-                int node=p.node,weight=p.weight;
-                if(vis[node]) continue;
-                vis[node]=true;
-                if(weight<=distanceThreshold)
-                    count++;
-                for(Pair ele:adj.get(node)){
-                    if(arr[node]+ele.weight<arr[ele.node]){
-                        arr[ele.node]=arr[node]+ele.weight;
-                        pq.add(new Pair(ele.node,arr[ele.node]));
-                    }
+        
+        for( int k = 0; k < n ; k++){
+            for( int i = 0; i < n ; i++){
+                for( int j = 0; j < n ; j++){
+                    graph[i][j]  =  Math.min(graph[i][j], graph[i][k] + graph[k][j]);
                 }
             }
-            if(count<=min){
-                min=count;
-                city=src;
+        }
+        
+        int minReachable = n, result = 0;
+        for( int i = 0; i < n ; i++){
+            int reachable = 0;
+            for( int j = 0 ; j < n ; j++){
+                if( graph[i][j] <= distanceThreshold){
+                    reachable++;
+                }
+            }
+            if( reachable <= minReachable){
+                minReachable = reachable;
+                result = i;
             }
         }
-        return city;
+        return result;
     }
 }
