@@ -54,3 +54,4 @@ class Solution {
     return maxRank;
     }
 }
+//O(1)
