@@ -1,5 +1,6 @@
 class Solution {
-    public int maximalNetworkRank(int n, int[][] roads) {
+
+         public int maximalNetworkRank(int n, int[][] roads) {
          int[] degreeOfNodes = new int[n];
     for (int[] road : roads) {
       degreeOfNodes[road[0]]++;
