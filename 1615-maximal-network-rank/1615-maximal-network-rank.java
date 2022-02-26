@@ -7,7 +7,7 @@ class Solution {
       degreeOfNodes[road[1]]++;
     }
     int maxDegree1 = 0, maxDegree2 = 0;
-    for (int node = 0; node < n; ++node) {
+    for (int node = 0; node < n; ++node) {//get first and second max
       int degreeOfNode = degreeOfNodes[node];
       if (degreeOfNode > maxDegree1) {
         maxDegree2 = maxDegree1;
