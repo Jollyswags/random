@@ -1,29 +1,45 @@
 class Solution {
-    public List<Integer> eventualSafeNodes(int[][] graph) {
-        int N = graph.length;
-        int[] color = new int[N];
-        List<Integer> ans = new ArrayList();
+ public List<Integer> eventualSafeNodes(int[][] graphList) {
 
-        for (int i = 0; i < N; ++i)
-            if (dfs(i, color, graph))
-                ans.add(i);
-        return ans;
-    }
-
-    // colors: WHITE 0, GRAY 1, BLACK 2;
-    public boolean dfs(int node, int[] color, int[][] graph) {
-        if (color[node] > 0)
-            return color[node] == 2;
-
-        color[node] = 1;//visiting
-        for (int nei: graph[node]) {
-            if (color[node] == 2)
-                continue;
-            if (color[nei] == 1 || !dfs(nei, color, graph))
-                return false;
-        }
-
-        color[node] = 2;//visited
-        return true;
-    }
+int n  = graphList.length;
+int []degree = new int[n];
+boolean isSafe[] = new boolean[n];
+Queue<Integer> q = new LinkedList<>();
+HashSet<Integer>[]  neighbour= new HashSet[n];
+for(int i=0;i<n;i++){
+    neighbour[i] = new HashSet<Integer>();
 }
+for(int i=0;i<n;i++){
+    
+    if(graphList[i].length==0){
+        isSafe[i] = true;
+        q.offer(i);
+    }
+    for(int v:graphList[i]){
+     neighbour[v].add(i);   
+    }        
+    degree[i] = graphList[i].length;
+}
+    
+while(!q.isEmpty()){
+    
+    int curr = q.poll();
+    isSafe[curr] = true;
+    
+    for(int v:neighbour[curr]){
+     
+        degree[v]--;
+        if(degree[v]==0){
+            q.offer(v);
+        }            
+    }        
+}
+ArrayList<Integer> res = new ArrayList<>();
+for(int i=0;i<n;i++){
+    if(isSafe[i])res.add(i);
+}  
+return res;
+}
+}
+
+
