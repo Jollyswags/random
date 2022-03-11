@@ -10,33 +10,21 @@
  */
 class Solution {
     public ListNode rotateRight(ListNode head, int k) {
-               if (head==null || head.next==null || k==0  )
-    return head;
-
-  //  if k>size
-  ListNode node=head;
-  int size=0;
-  while (node!=null){//calc size
-    size++;
-    node=node.next;
-  }
-  k=k%size;//essentially that is the number of rotations
-  
-  ListNode prevkNode=head;
-  ListNode tail=head;
-  
-  for (int i=0; i<k; i++)
-    tail=tail.next;
-  
-  while (tail.next!=null){
-    prevkNode=prevkNode.next;
-    tail=tail.next;
-  }
-  
-  tail.next=head;
-  head=prevkNode.next;
-
-  prevkNode.next=null;
-  return head;
+         // Base Condition OR edge case
+        if(head == null || head.next == null || k == 0) return head;
+        
+        ListNode curr = head; // pointer current
+        int count = 1; // here count is length
+        while(curr.next != null){ // reach end of list, and have the count
+            count++;
+            curr = curr.next;
+        }
+        curr.next = head; // connect last node to head node to make it circular
+        k = count - (k % count); // get the length
+        while(k--> 0) curr = curr.next; // now move pointer, to the kth node
+        head = curr.next; // make the head 
+        curr.next = null; // and point that curr to null
+        
+        return head;
     }
 }
