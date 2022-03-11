@@ -1,38 +1,33 @@
 class Solution {
-    private static class Edge {
-        int to; 
-        boolean original;
-        
-        public Edge(int to, boolean original) {
-            this.to = to;
-            this.original = original;
-        }
-    }
-    
-    ArrayList<Edge>[] graph;
-    int count = 0; 
-    
     public int minReorder(int n, int[][] connections) {
-        graph = (ArrayList<Edge>[]) new ArrayList[n];
-        Arrays.setAll(graph, i -> new ArrayList<>());
-        
-        for(int[] edge : connections) {
-            int from = edge[0], to = edge[1];
-            graph[from].add(new Edge(to, true));
-            graph[to].add(new Edge(from, false));
+        HashSet<String> set = new HashSet<>();
+        ArrayList<Integer>[] graph = new ArrayList[n];
+        for(int i = 0 ; i < n ; i++) {
+            graph[i] = new ArrayList<>();
         }
-        
-        dfs(0, 0);
-        return count;
-    }
-    
-    private void dfs(int v, int p) {
-        for(Edge nei : graph[v]) {
-            if (nei.to == p) continue;
-            if (nei.original) {
-                count++;
+        for(int[] e : connections) {
+            int u = e[0], v = e[1];
+            graph[u].add(v);
+            graph[v].add(u);
+            set.add(u + "->" + v);
+        }
+        Queue<Integer> q = new LinkedList<>();
+        q.add(0);
+        int res = 0;
+        boolean[] vis = new boolean[n];
+        while(!q.isEmpty()) {
+            int size = q.size();
+            while(size-- > 0) {
+                int rem = q.remove();
+                vis[rem] = true;
+                for(int e : graph[rem]) {
+                    if(!vis[e]) {
+                        if(set.contains(rem + "->" + e)) res++;
+                        q.add(e);   
+                    }
+                }
             }
-            dfs(nei.to, v);
         }
+        return res;
     }
 }
