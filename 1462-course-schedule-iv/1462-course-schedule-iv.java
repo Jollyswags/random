@@ -18,7 +18,7 @@ class Solution {
 	//record removed course
     boolean[] used = new boolean[n];
 	//find all course nextcount = 0  
-    LinkedList<Integer> list = new LinkedList<>();
+    Queue<Integer> list = new LinkedList<>();
     for (int i = 0; i < n; i++) {
         if (nextCount[i] == 0) {
             list.add(i);
@@ -27,7 +27,7 @@ class Solution {
     }
     while (!list.isEmpty()) {
 		// get the no next course 
-        int remove = list.removeFirst();
+        int remove = list.poll();
 		//find the pre courses
         for (int i : pre[remove]) {	
 			// make it nextcount--
