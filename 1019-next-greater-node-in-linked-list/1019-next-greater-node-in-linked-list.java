@@ -10,7 +10,7 @@
  */
 class Solution {
     public int[] nextLargerNodes(ListNode head) {
-              ArrayList<Integer>arr=new ArrayList<>();
+       ArrayList<Integer>arr=new ArrayList<>();
         while(head!=null)
         {
             arr.add(head.val);
