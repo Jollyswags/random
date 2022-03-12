@@ -1,9 +1,6 @@
-class Solution {
- protected void backtrack(
-            int remain,
-            LinkedList<Integer> comb,
-            int start, int[] candidates,
-            List<List<Integer>> results) {
+class Solution { 
+ protected void backtrack(int remain, LinkedList<Integer> comb,int start, int[] candidates,  List<List<Integer>> results)
+   {
 
         if (remain == 0) {
             // make a deep copy of the current combination
