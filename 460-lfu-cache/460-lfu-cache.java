@@ -1,162 +1,70 @@
 class LFUCache {
 
-    private final Node[] map = new Node[100001];
-    private final Queue[] frequencyBuckets = new Queue[100001];
     private final int capacity;
-
-    private int size;
-    private int minBucket;
-
+    private final Map<Integer, Integer> data; // Key -> Value
+    private final Map<Integer, Integer> counters; // Key -> Counter
+    private final Map<Integer, Set<Integer>> reverse; // Counter -> Set<Key>
+    private int minCounter;
+    
     public LFUCache(int capacity) {
         this.capacity = capacity;
+        this.data = new HashMap<>();
+        this.counters = new HashMap<>();
+        this.reverse = new HashMap<>();
     }
-
+    
     public int get(int key) {
-        var node = map[key];
-
-        if (node == null) {
+        Integer value = data.get(key);
+        if (value == null) {
             return -1;
         }
-
-        refreshBuckets(node);
-
-        return node.val;
+        touch(key);
+        return value;
     }
-
+    
     public void put(int key, int value) {
         if (capacity == 0) {
             return;
         }
-
-        var node = map[key];
-
-        if (node != null) {
-            refreshBuckets(node);
-            node.val = value;
+        if (data.size() == capacity && !data.containsKey(key)) {
+            evict();
+        }
+        data.put(key, value);
+        touch(key);
+    }
+    
+    private void touch(int key) {
+        int keyCount = counters.compute(key, (k, v) -> (v == null) ? 1 : (v + 1));
+        reverse.computeIfAbsent(keyCount, k -> new LinkedHashSet<>()).add(key);
+        
+        int prevCount = keyCount - 1;
+        if (reverse.containsKey(prevCount)) {
+            Set<Integer> prevKeySet = reverse.get(prevCount);
+            prevKeySet.remove(key);
+            if (prevKeySet.isEmpty()) {
+                reverse.remove(prevCount);
+                if (prevCount == minCounter) {
+                    minCounter = keyCount;
+                }
+            }
         } else {
-            ++size;
-            removeLFU();
-            map[key] = Node.of(key, value);
-
-            minBucket = 1;
-
-            initBucketIfNotPresent(minBucket);
-
-            frequencyBuckets[minBucket].offer(map[key]);
+            minCounter = keyCount; // New key (i.e. keyCount = 1)
         }
     }
-
-    private void refreshBuckets(Node node) {
-        var frequencyBucket = frequencyBuckets[node.frequency];
-        frequencyBucket.remove(node);
-
-        if (node.isFrequencyEqualTo(minBucket) && frequencyBucket.isEmpty()) {
-            ++minBucket;
+    
+    private void evict() {
+        Set<Integer> keySet = reverse.get(minCounter);
+        int keyToEvict = keySet.iterator().next();
+        data.remove(keyToEvict);
+        counters.remove(keyToEvict);
+        keySet.remove(keyToEvict);
+        if (keySet.isEmpty()) {
+            reverse.remove(minCounter);
         }
-
-        node.frequencyIncrement();
-
-        initBucketIfNotPresent(node.frequency);
-
-        frequencyBuckets[node.frequency].offer(node);
-    }
-
-    private void initBucketIfNotPresent(int frequency) {
-        if (frequencyBuckets[frequency] == null) {
-            frequencyBuckets[frequency] = new Queue();
-        }
-    }
-
-    private void removeLFU() {
-        if (size <= capacity) {
-            return;
-        }
-
-        --size;
-        var frequencyBucket = frequencyBuckets[minBucket];
-        var node = frequencyBucket.poll();
-        map[node.key] = null;
-    }
-
-    private static final class Queue {
-
-        private final Node head = new Node(-1, -1);
-        private final Node tail = new Node(-1, -1);
-
-        public Queue() {
-            this.head.next = this.tail;
-            this.tail.prev = this.head;
-        }
-
-        // offer to head
-        public void offer(Node node) {
-            node.next = head.next;
-
-            if (head.next != null) {
-                head.next.prev = node;
-            }
-
-            head.next = node;
-            node.prev = head;
-        }
-
-        // poll from tail
-        public Node poll() {
-            return doRemove(tail.prev);
-        }
-
-        public Node remove(Node node) {
-            return doRemove(node);
-        }
-
-        private Node doRemove(Node node) {
-
-            if (node == head || node == tail) {
-                return null;
-            }
-
-            node.prev.next = node.next;
-            node.next.prev = node.prev;
-            node.prev = null;
-            node.next = null;
-
-            return node;
-        }
-
-        public boolean isEmpty() {
-            return head.next == tail;
-        }
-
-    }
-
-    private static final class Node {
-
-        private final int key;
-        private int val;
-        private int frequency;
-
-        private Node next;
-        private Node prev;
-
-        private Node(int key, int val) {
-            this.key = key;
-            this.val = val;
-            this.frequency = 1;
-        }
-
-        public static Node of(int key, int val) {
-            return new Node(key, val);
-        }
-
-        public void frequencyIncrement() {
-            ++this.frequency;
-        }
-
-        public boolean isFrequencyEqualTo(int frequency) {
-            return this.frequency == frequency;
-        }
+        // No need to change `minCounter` because `touch()` will set it to 1 later
     }
 }
+
 /**
  * Your LFUCache object will be instantiated and called as such:
  * LFUCache obj = new LFUCache(capacity);
