@@ -1,5 +1,5 @@
 class Solution {
-      private boolean isValid(int r, int c, int R, int C) {
+       private boolean isValid(int r, int c, int R, int C) {
         return 0 <= r && r < R && 0 <= c && c < C;
     }
 
@@ -23,7 +23,7 @@ class Solution {
             int[] curr = queue.remove();
             currLevel--;
             if (curr[0] == R - 1 && curr[1] == C - 1) {
-                return distance;
+                return distance;//reached end
             }
             for (int k = 0; k < 8; k++) {
                 int fr = dr[k] + curr[ROW];
