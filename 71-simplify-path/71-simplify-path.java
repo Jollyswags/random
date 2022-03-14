@@ -1,0 +1,25 @@
+class Solution {
+    public String simplifyPath(String path) {
+        Stack<String> stk = new Stack();
+        int start = 0;
+        while (start < path.length()) {
+            while (start < path.length() && path.charAt(start) == '/') start++;
+            int end = start;
+            while (end < path.length() && path.charAt(end) != '/') end ++;
+            String s = path.substring(start, end);
+            if (s.equals("..")) {
+                if (! stk.empty()) stk.pop();
+            }
+            else if (! s.equals(".") && ! s.equals("")) {
+                stk.push(s);
+            }
+            start = end + 1;
+        }
+        StringBuilder ans = new StringBuilder();
+        while (! stk.empty()) {
+            ans.insert(0, stk.pop());
+            ans.insert(0, "/");
+        }
+        return (ans.length() > 0) ? ans.toString(): "/"; 
+    }
+}
