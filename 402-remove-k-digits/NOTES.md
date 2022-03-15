@@ -1,1 +1,1 @@
-​
+While inserting in stack if current letter is smaller than top of stack then remove till k>0 and stack top is less than current letter. Again after if k>0 then remove all non zero elements. After this return from substring which is does not have zero in starting.
