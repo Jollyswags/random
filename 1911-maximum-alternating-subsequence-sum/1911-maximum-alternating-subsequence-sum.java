@@ -1,5 +1,6 @@
 class Solution {
-    public long maxAlternatingSum(int[] nums) {
+
+   public long maxAlternatingSum(int[] nums) {
        long p=0;
     long l=0;
     
@@ -25,5 +26,5 @@ class Solution {
     }
     
     return p-l;
-}
+    }
 }
