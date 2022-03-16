@@ -35,3 +35,5 @@ class Solution {
         return ans;
     }
 }
+//TC:O(N)
+//O(1)
