@@ -23,3 +23,5 @@ class Solution {
 		return res;
     }
 }
+//O(N)
+//O(1)
