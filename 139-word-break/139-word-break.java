@@ -1,18 +1,26 @@
 class Solution {
-    public boolean wordBreak(String s, List<String> wordDict) {
-        boolean[] dp = new boolean[s.length()];
-        for (int i = 0; i < s.length(); i++) {
-            for (String word : wordDict) {
-                // Make sure to stay in bounds while checking criteria
-                if (i >= word.length() - 1 && (i == word.length() - 1 || dp[i - word.length()])) {
-                    if (s.substring(i - word.length() + 1, i + 1).equals(word)) {
-                        dp[i] = true;   
-                        break;
-                    }
+     private HashMap<String, Boolean> memo;
+
+    private boolean dp(String s) {
+        if (!memo.containsKey(s)) {
+            for (int i = 1; i < s.length(); i++) {
+                if (dp(s.substring(0, i)) && dp(s.substring(i))) {
+                    memo.put(s, true);
+                    break;
                 }
             }
         }
-        
-        return dp[s.length() - 1];
+        if (!memo.containsKey(s)) {
+            memo.put(s, false);
+        }
+        return memo.get(s);
+    }
+
+    public boolean wordBreak(String s, List<String> wordDict) {
+        this.memo = new HashMap<>();
+        for (String str : wordDict) {
+            memo.put(str, true);
+        }
+        return dp(s);
     }
 }
