@@ -30,3 +30,5 @@ class Solution {
         return dp[len];
     }
 }
+//TC:O(NMN)
+//SC:O(N*N)
