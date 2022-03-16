@@ -1,6 +1,6 @@
 class Solution {
     public boolean validateStackSequences(int[] pushed, int[] popped) {
-            int N = pushed.length;
+        int N = pushed.length;
         Stack<Integer> stack = new Stack();
 
         int j = 0;
@@ -12,6 +12,6 @@ class Solution {
             }
         }
 
-        return j == N;  
+        return j == N;
     }
 }
