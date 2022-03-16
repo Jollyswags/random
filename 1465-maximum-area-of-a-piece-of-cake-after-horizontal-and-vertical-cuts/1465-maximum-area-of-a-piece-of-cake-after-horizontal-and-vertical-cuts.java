@@ -1,5 +1,5 @@
 class Solution {
-    public int maxArea(int h, int w, int[] hc, int[] vc) {
+       public int maxArea(int h, int w, int[] hc, int[] vc) {
  Arrays.sort(hc);
         Arrays.sort(vc);
         int maxh = Math.max(hc[0], h - hc[hc.length-1]),
