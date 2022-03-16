@@ -1,22 +1,24 @@
 class Solution {
-    public int numIslands(char[][] grid) {
+      public int numIslands(char[][] grid) {
         if (grid.length == 0) return 0;
 
         final UnionFind uf = new UnionFind(grid.length*grid[0].length);
         int zeros = 0;
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
+          int m=grid.length;
+          int n=grid[0].length;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 if (grid[i][j] == '0') {
                     ++zeros;
                     continue;
                 }    
                     
                 if (j > 0 && grid[i][j] == '1' && grid[i][j-1] == '1')
-                    uf.union(i*grid[0].length+j, i*grid[0].length+(j-1));
+                    uf.union(i*n+j, i*n+(j-1));
                     
                
                 if (i > 0 && grid[i][j] == '1' && grid[i-1][j] == '1')
-                    uf.union(i*grid[0].length+j, (i-1)*grid[0].length+j);
+                    uf.union(i*n+j, (i-1)*n+j);
                     
             }  
         }
