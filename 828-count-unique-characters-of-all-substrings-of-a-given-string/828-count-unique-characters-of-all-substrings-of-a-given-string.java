@@ -1,19 +1,25 @@
 class Solution {
-    public int uniqueLetterString(String s) 
-    {
-      int[][] index = new int[26][2];
-        int res=0, N=s.length(), mod=(int)Math.pow(10,9)+7;
-        for (int i = 0; i < 26; ++i) Arrays.fill(index[i],-1);
-        // find last 2 occurences of each char in s
-        for(int i=0; i<s.length(); i++){
-            int c = s.charAt(i)-'A';
-            res = (res + ((i-index[c][1])* (index[c][1]-index[c][0])) %mod )%mod;
-            index[c] = new int[]{index[c][1],i};
-        }
-        // count result
-        for(int c=0; c<26;c++){
-            res = (res + ((N-index[c][1])*(index[c][1]-index[c][0])) %mod) %mod;
-        }
-    return res;
+    public int uniqueLetterString(String s) {
+        	int[] lastSeen = new int[26];
+        Arrays.fill(lastSeen, -1);
+        
+        int[] secLastSeen = new int[26];
+        Arrays.fill(secLastSeen, -1);
+		
+		int count = 0, res = 0;
+	
+		for (int i = 0; i < s.length(); i++) {
+            int idx = s.charAt(i) - 'A';
+            int p = lastSeen[idx];
+            int q = secLastSeen[idx];
+			
+            count += i - p - p + q;
+            res += count;
+            
+            secLastSeen[idx] = lastSeen[idx];
+            lastSeen[idx] = i;
+		}
+        
+		return res;
     }
 }
