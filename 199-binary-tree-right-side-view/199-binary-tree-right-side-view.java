@@ -14,24 +14,35 @@
  * }
  */
 class Solution {
-    List<List<Integer>> ans=new ArrayList<>();
+    int maxsum=0;
+    List<Integer>ans=new ArrayList<>();
     public List<Integer> rightSideView(TreeNode root) {
-        traverse(root,0);
-        List<Integer> result=new ArrayList<>();
-        for(List<Integer> l:ans)
-        {
-            result.add(l.get(l.size()-1));
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> real = new ArrayList<>();
+        if(root==null){
+            return real;
         }
-        return result;
-    }
-    public void traverse(TreeNode root,int level)
-    {
-        if(root==null)
-            return;
-        if(ans.size()<=level)
-            ans.add(new ArrayList<>());
-        ans.get(level).add(root.val);
-        traverse(root.left,level+1);
-        traverse(root.right,level+1);
+        
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        
+        while(!q.isEmpty()){
+            List<Integer> temp = new ArrayList<>();
+            int size = q.size();
+            while(size-->0){
+                if(q.peek().left!=null)  {q.offer(q.peek().left); }
+                if(q.peek().right!=null) {q.offer(q.peek().right);}
+                temp.add(q.poll().val);
+            }
+            
+            ans.add(temp);
+            
+        }
+        
+        
+        for(List<Integer> x : ans){
+            real.add(x.get(x.size()-1));
+        }
+        return real;
     }
 }
