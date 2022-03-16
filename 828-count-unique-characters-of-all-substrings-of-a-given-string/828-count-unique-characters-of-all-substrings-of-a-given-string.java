@@ -13,7 +13,7 @@ class Solution {
             int p = lastSeen[idx];
             int q = secLastSeen[idx];
 			
-            count += i - p - p + q;
+            count += i - (2*p) + q;
             res += count;
             
             secLastSeen[idx] = lastSeen[idx];
