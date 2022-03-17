@@ -1,5 +1,6 @@
 class StockSpanner {
-  Stack<int[]> stack;
+
+    Stack<int[]> stack;
     
     public StockSpanner() {
         stack = new Stack<>();
