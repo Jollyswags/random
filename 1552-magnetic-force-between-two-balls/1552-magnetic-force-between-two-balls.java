@@ -1,5 +1,6 @@
 class Solution {
-     boolean isPossible(int[] position, int m, int mid)
+       
+    boolean isPossible(int[] position, int m, int mid)
     {
         int count = 1;
         int placed = position[0];
