@@ -1,6 +1,6 @@
 class Solution {
     public int canCompleteCircuit(int[] gas, int[] cost) {
-           int n = gas.length;
+        int n = gas.length;
 
     int total_tank = 0;
     int curr_tank = 0;
