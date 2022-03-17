@@ -44,7 +44,7 @@ class Solution {
             return;
         }
         pq.offer(new Point(x, y, root.val));
-        helper(root.left, x - 1, y + 1, pq);
-        helper(root.right, x + 1, y + 1, pq);
+        helper(root.left, x - 1, y+1, pq);
+        helper(root.right, x + 1, y+1, pq);
     }
 }
