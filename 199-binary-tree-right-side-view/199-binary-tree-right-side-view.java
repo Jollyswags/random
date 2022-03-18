@@ -19,6 +19,7 @@ class Solution {
     public List<Integer> rightSideView(TreeNode root) {
         List<List<Integer>> ans = new ArrayList<>();
         List<Integer> real = new ArrayList<>();
+         List<Integer> left = new ArrayList<>();
         if(root==null){
             return real;
         }
@@ -38,11 +39,14 @@ class Solution {
             ans.add(temp);
             
         }
-        
+        for(List<Integer> x: ans)
+            left.add(x.get(0));
+          System.out.println(left);  
         
         for(List<Integer> x : ans){
             real.add(x.get(x.size()-1));
         }
+        System.out.println(real);
         return real;
     }
 }
