@@ -1,39 +1,43 @@
-
 class Solution {
-
-    private int dfs(Set<String> words, Map<String, Integer> memo, String currentWord) {
-        // If the word is encountered previously we just return its value present in the map (memoization).
-        if (memo.containsKey(currentWord)) {
-            return memo.get(currentWord);
-        }
-        // This stores the maximum length of word sequence possible with the 'currentWord' as the
-        int maxLength = 1;
-        StringBuilder sb = new StringBuilder(currentWord);
-
-        // creating all possible strings taking out one character at a time from the `currentWord`
-        for (int i = 0; i < currentWord.length(); i++) {
-            sb.deleteCharAt(i);
-            String newWord = sb.toString();
-            // If the new word formed is present in the list, we do a dfs search with this newWord.
-            if (words.contains(newWord)) {
-                int currentLength = 1 + dfs(words, memo, newWord);
-                maxLength = Math.max(maxLength, currentLength);
-            }
-            sb.insert(i, currentWord.charAt(i));
-        }
-        memo.put(currentWord, maxLength);
-
-        return maxLength;
-    }
-
+  
+         Map<String, Integer> countMap = new HashMap();
+    Set<String> set = new HashSet();
     public int longestStrChain(String[] words) {
-        Map<String, Integer> memo = new HashMap<>();
-        Set<String> wordsPresent = new HashSet<>();
-        Collections.addAll(wordsPresent, words);
-        int ans = 0;
-        for (String word : words) {
-            ans = Math.max(ans, dfs(wordsPresent, memo, word));
+        Arrays.sort(words);
+		
+        countMap.clear();
+        set.clear();
+        
+        for (String word: words) {
+            set.add(word);
         }
-        return ans;
+        
+        int max = 0;
+        for (String word: words) {
+            max = Math.max(max, chainLength(word));
+        }
+        
+        return max;
+    }
+    
+    private int chainLength(String word) {
+        if (!set.contains(word)) return 0;       // We don't care about words that are not in the array
+        
+        if (countMap.containsKey(word)) {
+            return countMap.get(word);
+        }
+        
+		// If the word is in the array, we begin finding it's chain.
+        int maxLength = 0;
+        StringBuilder stb = new StringBuilder(word);
+        for (int i = 0; i < word.length(); i++) {
+            stb.deleteCharAt(i);
+            maxLength = Math.max(maxLength, chainLength(stb.toString()));
+            stb.insert(i, word.charAt(i));
+        }
+        
+        countMap.put(word, maxLength + 1);
+        
+        return countMap.get(word);
     }
 }
