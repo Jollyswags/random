@@ -22,6 +22,5 @@ class Solution {
         if(root.val<val)
             root.right=insertIntoBST(root.right,val);
         return root;
-        
     }
 }
