@@ -1,28 +1,45 @@
 class Solution {
     public List<List<Integer>> getAncestors(int n, int[][] edges) {
-        // create graph Adj List
-        List<List<Integer>> adj = new ArrayList<>();
-        for(int i=0; i<n; i++) adj.add(new ArrayList<>());
+          
+        // Build graph, and compute in degree.
+        int[] inDegree = new int[n];
+        Map<Integer, List<Integer>> parentToKids = new HashMap<>();
+        for (int[] e : edges) {
+            parentToKids.computeIfAbsent(e[0], l -> new ArrayList<>()).add(e[1]);
+            ++inDegree[e[1]];
+        }
         
-        for(int[] edge: edges) {
-            adj.get(edge[1]).add(edge[0]);
+        // 1. Use a list of sets to save ancestors 
+        // and to avoid duplicates.
+        // 2. Use a Queue to save 0-in-degree nodes as
+        // the starting nodes for topological sort.
+        List<Set<Integer>> sets = new ArrayList<>();
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < n; ++i) {
+            sets.add(new HashSet<>());
+            if (inDegree[i] == 0)
+                q.offer(i);
         }
-        // create ans list by dfs
-        List<List<Integer>> ll = new ArrayList<>();
-        for(int i=0; i<n; i++) {
-            Set<Integer> visit = new TreeSet<>();
-            dfs(i, adj, visit);
-            ll.add(new ArrayList<>(visit));
-        }
-        return ll;
-    }
-    
-    public void dfs(int u, List<List<Integer>> adj, Set<Integer> visit) {
-        for(int v: adj.get(u)) {
-            if(!visit.contains(v)){
-                visit.add(v);
-                dfs(v, adj, visit);
+        
+        // BFS to their neighbors and decrease 
+        // the in degrees, when reaching 0, add
+        // it into queue;
+        // During this procedure, get direct parent, add 
+        // all ancestors of direct parents' of each kid.
+        while (!q.isEmpty()) {
+            int parent = q.poll();
+            for (int kid : parentToKids.getOrDefault(parent, Arrays.asList())) {
+                sets.get(kid).add(parent);
+                sets.get(kid).addAll(sets.get(parent));
+                if (--inDegree[kid] == 0)
+                    q.offer(kid);
             }
         }
+        
+        // Sort ancestors and put into return list. 
+        List<List<Integer>> ans = new ArrayList<>();
+        for (Set<Integer> set : sets)
+            ans.add(new ArrayList<>(new TreeSet<>(set)));
+        return ans;
     }
 }
