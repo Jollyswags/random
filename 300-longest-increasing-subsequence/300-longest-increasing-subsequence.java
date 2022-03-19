@@ -1,6 +1,6 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
-         int[] dp = new int[nums.length];
+        int[] dp = new int[nums.length];
         Arrays.fill(dp, 1);
         
         for (int i = 1; i < nums.length; i++) {
@@ -16,6 +16,6 @@ class Solution {
             longest = Math.max(longest, c);
         }
         
-        return longest;
+        return longest; 
     }
 }
