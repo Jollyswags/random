@@ -1,45 +1,40 @@
 class Solution {
- public List<Integer> eventualSafeNodes(int[][] graphList) 
- {
-     int n  = graphList.length;
-     int []degree = new int[n];
-     boolean isSafe[] = new boolean[n];
-     Queue<Integer> q = new LinkedList<>();
-     HashSet<Integer>[]  neighbour= new HashSet[n];
-     for(int i=0;i<n;i++){
-       neighbour[i] = new HashSet<Integer>();
+    public List<Integer> eventualSafeNodes(int[][] G) {
+        int N = G.length;
+        boolean[] safe = new boolean[N];
+
+        List<Set<Integer>> graph = new ArrayList();
+        List<Set<Integer>> rgraph = new ArrayList();
+        for (int i = 0; i < N; ++i) {
+            graph.add(new HashSet());
+            rgraph.add(new HashSet());
+        }
+
+        Queue<Integer> queue = new LinkedList();
+
+        for (int i = 0; i < N; ++i) {
+            if (G[i].length == 0)
+                queue.offer(i);
+            for (int j: G[i]) {
+                graph.get(i).add(j);
+                rgraph.get(j).add(i);
+            }
+        }
+
+        while (!queue.isEmpty()) {
+            int j = queue.poll();
+            safe[j] = true;
+            for (int i: rgraph.get(j)) {
+                graph.get(i).remove(j);
+                if (graph.get(i).isEmpty())
+                    queue.offer(i);
+            }
+        }
+
+        List<Integer> ans = new ArrayList();
+        for (int i = 0; i < N; ++i) if (safe[i])
+            ans.add(i);
+
+        return ans;
+    }
 }
-     for(int i=0;i<n;i++)
-     {
-         if(graphList[i].length==0)
-         {
-             isSafe[i]=true;
-             q.offer(i);
-         }
-         for(int nei:graphList[i])
-         {
-             neighbour[nei].add(i);
-         }
-         degree[i]=graphList[i].length;
-     }
-     while(!q.isEmpty())
-     {
-         int curr =q.poll();
-         isSafe[curr] = true;
-         for(int nei : neighbour[curr])
-         {
-             degree[nei]--;
-             if(degree[nei]==0)
-                 q.offer(nei);
-         }
-     }
-     List<Integer> ans=new ArrayList<>();
-     for(int i=0;i<n;i++)
-         if(isSafe[i])
-             ans.add(i);
-     return ans;
- }
-
-}
-
-
