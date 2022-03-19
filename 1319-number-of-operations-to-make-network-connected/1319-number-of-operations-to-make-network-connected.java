@@ -1,5 +1,5 @@
 class Solution {
-    public int makeConnected(int n, int[][] grid) {
+   public int makeConnected(int n, int[][] grid) {
         UnionFind uf = new UnionFind(n);
         for (int i = 0;i<grid.length;i++) uf.union(grid[i][0], grid[i][1]);    
         
