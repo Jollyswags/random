@@ -14,34 +14,41 @@
  * }
  */
 class Solution {
-   int count=0;
-    public int countPairs(TreeNode root, int distance) {
-        Distance(root,distance);
-            return count;
+  public int countPairs(TreeNode root, int distance) {
+        solve(root, distance);
+        return ans;
     }
-    public List<Integer> Distance(TreeNode root,int distance){
-        if(root==null)
-            return new ArrayList<Integer>();
-        if(root.left==null&&root.right==null){
-            List<Integer> sublist=new ArrayList<Integer>();
-            sublist.add(1);
-            return sublist;
+    int ans = 0;
+    //from each node return list of distances to the leaves
+    List<Integer> solve(TreeNode root, int distance) {
+        if(root == null) return new ArrayList();
+        if(root.left == null && root.right == null){
+            List<Integer> leaf = new ArrayList();
+            leaf.add(1);
+            return leaf;
         }
-        List<Integer> l1=Distance(root.left,distance);
-        List<Integer> l2=Distance(root.right,distance);
-        //System.out.println("left "+l1);
-        //System.out.println("right "+l2);
-        for(int d1:l1){
-            for(int d2:l2){
-                if(d1+d2<=distance)
-                    count++;
+            
+        List<Integer> left = solve(root.left, distance);
+        List<Integer> right = solve(root.right, distance);
+        
+        for(int l : left) {
+            for(int r : right) {
+                if(l + r <= distance) {
+                    ans++;
+                }
             }
         }
-        List<Integer> list=new ArrayList<Integer>();
-        for(int val:l1)
-            list.add(val+1);
-        for(int val:l2)
-            list.add(val+1);
-        return list;
+        List<Integer> ret = new ArrayList();
+        for(int l : left) {
+            if(l + 1 < distance) {
+                ret.add(l+1);
+            }
+        }
+        for(int r : right) {
+            if(r + 1 < distance) {
+                ret.add(r+1);
+            }
+        }
+        return ret;
     }
 }
