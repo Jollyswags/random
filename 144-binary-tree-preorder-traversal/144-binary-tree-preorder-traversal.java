@@ -14,27 +14,21 @@
  * }
  */
 class Solution {
-       // list to keep track of the pre order traversal
-    List<Integer> preOrder = new ArrayList<>();
-    
     public List<Integer> preorderTraversal(TreeNode root) {
-        preOrderHelper(root);
-        return preOrder;
-    }
-    
-    public List<Integer> preOrderHelper(TreeNode current) {
+           ArrayList preorder  = new ArrayList<>();
+        if(root == null) return preorder;
         
-        // base case, no node value
-        if (current == null) {
-            return null;
+        Stack<TreeNode>st = new Stack<>();
+        st.push(root);
+        while( !st.isEmpty() ){
+            root = st.pop(); 
+            preorder.add(root.val);
+            if(root.right != null) 
+                st.add(root.right);
+            if(root.left != null)
+                st.add(root.left);
+                        
         }
-        
-        // pre order traversal is (root, left, right) so, use that logic when 
-        // recursing
-        preOrder.add(current.val);
-        preOrderHelper(current.left);
-        preOrderHelper(current.right);
-        
-        return preOrder;
+        return preorder;        
     }
 }
