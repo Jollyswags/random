@@ -1,0 +1,23 @@
+class Solution {
+    public int numSplits(String s) {
+        int len=s.length();
+        int[] left=new int[len];
+        int[] right=new int[len];
+        Set<Character> leftchar=new HashSet();
+        Set<Character> rightchar=new HashSet();
+        for(int i=0;i<len;i++)
+        {
+            leftchar.add(s.charAt(i));//left to right
+            rightchar.add(s.charAt(len-1-i));//right to left
+            left[i]=leftchar.size();
+            right[len-1-i]=rightchar.size();
+        }
+        int c=0;
+        for(int i=1;i<len;i++)
+        {
+            if(left[i-1]==right[i])
+                c++;
+        }
+        return c;
+    }
+}
