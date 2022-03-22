@@ -1,6 +1,6 @@
 class Solution {
     public int climbStairs(int n) {
-        int a,b;
+       int a,b;
         a=1;
         b=2;
         if(n==1)
@@ -14,7 +14,6 @@ class Solution {
             a=b;
             b=sum;
         }
-        return b;
-        
+        return b;  
     }
 }
