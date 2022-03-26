@@ -1,20 +1,24 @@
 class Solution {
     public int deleteAndEarn(int[] nums) {
-        int[] count = new int[10001];
-        for (int x: nums) count[x]++;
-        int avoid = 0, using = 0, prev = -1;
-
-        for (int k = 0; k <= 10000; ++k) if (count[k] > 0) {
-            int m = Math.max(avoid, using);
-            if (k - 1 != prev) {
-                using = k * count[k] + m;
-                avoid = m;
-            } else {
-                using = k * count[k] + avoid;
-                avoid = m;
-            }
-            prev = k;
+      int maxNumber = 0;
+        HashMap<Integer, Integer> points = new HashMap<>();
+        
+        // Precompute how many points we gain from taking an element
+        for (int num : nums) {
+            points.put(num, points.getOrDefault(num, 0) + num);
+            maxNumber = Math.max(maxNumber, num);
         }
-        return Math.max(avoid, using);
+        
+        // Base cases
+        int twoBack = 0;
+        int oneBack = points.getOrDefault(1, 0);
+        
+        for (int num = 2; num <= maxNumber; num++) {
+            int temp = oneBack;
+            oneBack = Math.max(oneBack, twoBack + points.getOrDefault(num, 0));
+            twoBack = temp;
+        }
+        
+        return oneBack;  
     }
 }
