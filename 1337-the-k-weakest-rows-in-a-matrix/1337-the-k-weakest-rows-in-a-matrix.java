@@ -1,18 +1,3 @@
-/**
- * Using Binary Search + PriorityQueue (Max Heap)
- *
- * Find the left most zero in each row (using binary search). Save the row index
- * and count combination in max heap of size k.
- *
- * Time Complexity:
- * O(M * logN) --> To find the left most zero in each row
- * O(M * logK) --> To add and poll from PriorityQueue. K elements are maintained in the queue.
- * Total Time Complexity: O(M * log(NK))
- *
- * Space Complexity: O(K) --> Used by MaxHeap
- *
- * M = Number of rows. N = Number of Columns.
- */
 class Solution {
     public int[] kWeakestRows(int[][] mat, int k) {
         if (mat == null || k < 0 || mat.length < k) {
@@ -56,5 +41,6 @@ class Solution {
         }
 
         return end;
-    }
+        
+}
 }
