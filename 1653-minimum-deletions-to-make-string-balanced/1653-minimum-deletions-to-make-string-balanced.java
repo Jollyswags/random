@@ -1,6 +1,6 @@
 class Solution {
     public int minimumDeletions(String s) {
-           int aCount = 0;
+          int aCount = 0;
         int bCount = 0;
         int n = s.length();
         
@@ -23,6 +23,6 @@ class Solution {
             maxLen = Math.max(maxLen, aCount + bCount);
         }
         
-        return s.length() - maxLen;     
+        return s.length() - maxLen;        
     }
 }
