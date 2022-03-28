@@ -14,7 +14,7 @@
  * }
  */
 class Solution {
-     public int[] houseRob(TreeNode root){
+ public int[] houseRob(TreeNode root){
     if(root==null){
             return new int[2];
         }
