@@ -1,6 +1,6 @@
 class Solution {
-       public int findTheCity(int n, int[][] edges, int distanceThreshold) {
-        int INF = (int) 1e6;
+    public int findTheCity(int n, int[][] edges, int distanceThreshold) {
+         int INF = (int) 1e6;
         int[][] graph = new int[n][n];
         for( int i = 0; i < n ; i++){
             Arrays.fill(graph[i],INF);
