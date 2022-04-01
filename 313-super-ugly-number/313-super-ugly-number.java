@@ -1,6 +1,6 @@
 class Solution {
     public int nthSuperUglyNumber(int n, int[] primes) {
-        int cur[] = new int[primes.length];
+       int cur[] = new int[primes.length];
 		int ans=1;
 		int dp[] = new int[n+1];
 		dp[0]=1;
@@ -21,6 +21,6 @@ class Solution {
 				}
 			}
 		}
-		return dp[n-1];
+		return dp[n-1]; 
     }
 }
