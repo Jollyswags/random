@@ -1,40 +1,37 @@
 class Solution {
-      public int maxDistance(int[][] grid) {
-        if (grid == null || grid.length == 0)
-            return -1;
-        int row = grid.length;
-        int col = grid[0].length;
-        boolean [][] visited = new boolean [row][col];
-        return bfs(grid, visited, row, col);
-    }
-    public int bfs(int [][] grid, boolean [][] visited, int row, int col) {
-        Queue<int[]> queue = new LinkedList<>();
-        int [][] directions = new int [][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-        int result = -1;
-        for (int i=0; i<row; i++) {
-            for (int j=0; j<col; j++) {
+  int[][] dirs = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    public int maxDistance(int[][] grid) {
+        Queue<int[]> q = new LinkedList();
+        int maxDistance = 0;
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] == 1) {
+                    q.offer(new int[]{i, j, 0});
                     visited[i][j] = true;
-                    queue.offer(new int [] {i, j});
                 }
             }
         }
-        while (!queue.isEmpty()) {
-            int [] current = queue.poll();
-            int x = current[0];
-            int y = current[1];
-            for (int [] dir : directions) {
-                int newX = dir[0] + x;
-                int newY = dir[1] + y;
-                if (newX < 0 || newY < 0 || newX >= row || newY >= col || visited[newX][newY]) {
-                    continue;
+        
+        while (!q.isEmpty()) {
+            int[] node = q.poll();
+            int i = node[0];
+            int j = node[1];
+            int dis = node[2];
+            if (grid[i][j] == 0) maxDistance = Math.max(maxDistance, dis);
+            for (int[] dir: dirs) {
+                int ni = i + dir[0];
+                int nj = j + dir[1];
+                if (ni >= 0 && ni < grid.length && 
+                    nj >= 0 && nj < grid[0].length &&
+                    !visited[ni][nj]) {
+                    visited[ni][nj] = true;
+                    if (grid[ni][nj] == 1) q.offer(new int[]{ni, nj, 0});
+                    else q.offer(new int[]{ni, nj, dis + 1});
                 }
-                visited[newX][newY] = true;
-                grid[newX][newY] = grid[x][y] + 1;
-                result = Math.max(result, grid[newX][newY]);
-                queue.offer(new int []{newX, newY});
             }
         }
-        return result < 0 ? -1 : result - 1;
+        
+        return (maxDistance == 0) ? -1 : maxDistance;
     }
 }
