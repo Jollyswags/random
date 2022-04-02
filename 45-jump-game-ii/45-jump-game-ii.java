@@ -1,6 +1,6 @@
 class Solution {
     public int jump(int[] nums) {
-        int j=0;
+         int j=0;
         int n=nums.length-1;
         if(nums.length==1)
             return 0;
@@ -17,6 +17,5 @@ class Solution {
             
         }
         return j;
-        
     }
 }
