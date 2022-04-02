@@ -1,6 +1,6 @@
 class Solution {
     public int[][] updateMatrix(int[][] mat) {
-          int R = mat.length, C = mat[0].length;
+        int R = mat.length, C = mat[0].length;
 	// since diagonal doesn't count, the longest path is really the length of the matrix, minus itself and overlapped
 	// given that there will always be a zero, this value can be anything big enough.
 	int max = R + C - 2;
