@@ -13,6 +13,6 @@ class Solution {
         while(stack.size() > 1)
             result += stack.pop() * stack.peek();
         
-        return result;  
+        return result; 
     }
 }
