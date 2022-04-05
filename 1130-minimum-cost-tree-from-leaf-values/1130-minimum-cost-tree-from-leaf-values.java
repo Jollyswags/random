@@ -4,10 +4,9 @@ class Solution {
         int result = 0;
         
         for(int i = 0; i < arr.length; ++i) {
-            while(!stack.empty() && stack.peek() <= arr[i])
-                result += stack.pop() * (stack.empty() ? arr[i] : Math.min(stack.peek(), arr[i]));
-            
-            stack.push(arr[i]);
+            while(!stack.empty() && stack.peek()<=arr[i])
+                result+=stack.pop() * (stack.empty()?arr[i]:Math.min(arr[i],stack.peek()));
+            stack.add(arr[i]);
         }
         
         while(stack.size() > 1)
