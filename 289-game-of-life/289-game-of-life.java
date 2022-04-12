@@ -1,5 +1,5 @@
 class Solution {
-  public void gameOfLife(int[][] board) {
+    public void gameOfLife(int[][] board) {
         int h = board.length, w = board[0].length;
 		//for each living cell, add itself to its neighbors
         for (int i = 0; i < h; i++)
