@@ -15,7 +15,7 @@
  */
 class Solution {
     public TreeNode searchBST(TreeNode root, int val) {
-         if(root == null) return null;
+          if(root == null) return null;
         Queue<TreeNode> q = new LinkedList<>();
         
         q.add(root);
