@@ -1,15 +1,30 @@
 class Solution {
     public int kthFactor(int n, int k) {
-        int counter = 0;
-        for (int i = 1; i <= n; i++) {
-            if (n % i == 0) {
-                counter++;
-            }
-            if (counter == k) {
-                return i;
+       if(k == 1)
+            return 1;
+        
+        int s = (int)(Math.sqrt((double)(n)));
+        
+        for(int i = 1; i <= s; ++i)
+        {
+            if(n % i == 0)
+            {
+                if(--k == 0)
+                    return i;
             }
         }
         
-        return -1;
+        for(int i = s; i >= 1; --i)
+        {
+            if(n % i == 0)
+            {
+                if(i * i == n)
+                    continue;
+                if(--k == 0)
+                    return n / i;
+            }
+        }
+        
+        return -1;  
     }
 }
