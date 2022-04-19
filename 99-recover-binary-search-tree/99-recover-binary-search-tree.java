@@ -14,7 +14,7 @@
  * }
  */
 class Solution {
-    TreeNode prev=null, first=null, second=null;
+      TreeNode prev=null, first=null, second=null;
     public void recoverTree(TreeNode root) {
         inorder(root);
         int temp=first.val;
