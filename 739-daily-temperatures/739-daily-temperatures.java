@@ -1,14 +1,24 @@
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) {
-        int[] res = new int[temperatures.length];
-        Stack<Integer> stack = new Stack();
-        for(int i=0;i<temperatures.length;i++){
-            while(!stack.isEmpty() && temperatures[stack.peek()]< temperatures[i]){ 
-                int temp = stack.pop();
-                res[temp] = i-temp;
+        int n = temperatures.length;
+        int hottest = 0;
+        int answer[] = new int[n];
+        
+        for (int currDay = n - 1; currDay >= 0; currDay--) {
+            int currentTemp = temperatures[currDay];
+            if (currentTemp >= hottest) {
+                hottest = currentTemp;
+                continue;
             }
-            stack.push(i);
+            
+            int days = 1;
+            while (temperatures[currDay + days] <= currentTemp) {
+                // Use information from answer to search for the next warmer day
+                days += answer[currDay + days];
+            }
+            answer[currDay] = days;
         }
-        return res;
+        
+        return answer;
     }
 }
