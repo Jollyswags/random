@@ -1,33 +1,16 @@
 class Solution {
     public int numTeams(int[] rating) {
-         int len = rating.length;
-
-		int[] up = new int[len]; 
-		int[] down = new int[len];
-
-		int count = 0;
-        
-        // first <r[i] <r[j] <r[k] order
-        
-        for(int i = 0; i < len; i++){
-            for(int j = i; j >= 0; j--){
-                if(rating[i] > rating[j]){
-                    up[i]++;
-                    count = count + up[j];
-                }
-            }
+        int res = 0;
+    for (int i = 1; i < rating.length - 1; ++i) {
+        int less[]=new int[2], greater[]=new int[2];
+        for (int j = 0; j < rating.length; ++j) {
+            if (rating[i] < rating[j])
+                ++less[j > i?1:0];
+            if (rating[i] > rating[j])
+                ++greater[j > i ?1 :0];
         }
-        
-        // second >r[i] >r[j] >r[k] order
-		 for(int i = 0; i < len; i++){
-            for(int j = i; j >= 0; j--){
-				if (rating[i] < rating[j]) {
-					down[i] += 1;
-					count += down[j];
-				}
-			}
-		}
-
-		return count;
+        res += less[0] * greater[1] + greater[0] * less[1];
+    }
+    return res;
     }
 }
