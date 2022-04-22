@@ -12,7 +12,7 @@ class Solution {
             }
             
             int days = 1;
-            while (temperatures[currDay + days] <= currentTemp) {
+            while (temperatures[currDay + days] <= temperatures[currDay]) {
                 // Use information from answer to search for the next warmer day
                 days += answer[currDay + days];
             }
