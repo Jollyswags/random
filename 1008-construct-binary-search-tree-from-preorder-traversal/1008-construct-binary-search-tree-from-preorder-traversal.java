@@ -14,7 +14,7 @@
  * }
  */
 class Solution {
-    int idx;
+      int idx;
     int n;
     int preorder[];
     public TreeNode bstFromPreorder(int[] preorder) {
