@@ -1,6 +1,5 @@
 class MyHashMap {
-    
-    int[] res = new int[1000001];
+       int[] res = new int[1000001];
 
     public MyHashMap() {
         Arrays.fill(res, -1);
@@ -17,6 +16,7 @@ class MyHashMap {
     public void remove(int key) {
         res[key] = -1;
     }
+
 }
 
 /**
