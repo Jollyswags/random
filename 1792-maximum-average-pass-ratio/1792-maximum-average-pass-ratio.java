@@ -1,6 +1,6 @@
 class Solution {
     public double maxAverageRatio(int[][] classes, int extraStudents) {
-          PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> {
+           PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> {
             // compare the increase ratio
             double fir = ((double) a[0] + 1)/(a[1] + 1) - ((double) a[0])/(a[1]);
             double sec = ((double) b[0] + 1)/(b[1] + 1) - ((double) b[0])/(b[1]);
@@ -8,7 +8,7 @@ class Solution {
         });
         int n = classes.length;
         for (int i = 0; i<n; i++) {
-            if (classes[i][0]==classes[i][1]) continue;
+            if (classes[i][0]==classes[i][1]) continue;//all passed
             pq.add(new int[] {classes[i][0], classes[i][1]});
         }
         if (pq.size()>0) {
