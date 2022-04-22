@@ -17,3 +17,5 @@ public class Solution {
         }
     }
 }
+//O(K)
+//O(n)
