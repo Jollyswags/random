@@ -1,6 +1,6 @@
 class Solution {
     public boolean checkZeroOnes(String s) {
-        var maxZeros = 0;
+      var maxZeros = 0;
 	var maxOnes = 0;
 
 	for (int i = 0, zeros = 0, ones = 0; i < s.length(); i++)
@@ -12,6 +12,6 @@ class Solution {
 			zeros = 0;
 		}
 
-	return maxOnes > maxZeros;
+	return maxOnes > maxZeros;  
     }
 }
