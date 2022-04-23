@@ -1,11 +1,12 @@
 class Solution {
     int root[];
     int rank[];
-    public int findCircleNum(int[][] isConnected) {
+    public int findCircleNum(int[][] isConnected) 
+    {
+        int count=0;
         int l=isConnected.length;
         root=new int[l];
         rank=new int[l];
-        
         int i,j;
         for(i=0;i<l;i++)
         {
@@ -14,38 +15,41 @@ class Solution {
         }
         for(i=0;i<l;i++)
             for(j=0;j<l;j++)
-            {
                 if(isConnected[i][j]==1)
                     union(i,j);
-                
-            }
-        int c=0;
         for(i=0;i<l;i++)
         {
             if(root[i]==i)
-                c++;
+                count++;
         }
-            
-        return c;
+        return count;
     }
     public int find(int x)
     {
-        if(x==root[x])
+        if(root[x]==x)
             return x;
         return root[x]=find(root[x]);
     }
-    public void union(int x, int y) {
-        int rootX = find(x);
-        int rootY = find(y);
-        if (rootX != rootY) {
-            if (rank[rootX] > rank[rootY]) {
-                root[rootY] = rootX;
-            } else if (rank[rootX] < rank[rootY]) {
-                root[rootX] = rootY;
-            } else {
-                root[rootY] = rootX;
-                rank[rootX] += 1;
+    public void union(int x, int y)
+    {
+        int rootX=find(x);
+        int rootY=find(y);
+        if(rank[rootX]>rank[rootY])
+        {
+            root[rootY]=root[rootX];
+            
+        }
+        else
+            if(rank[rootX]<rank[rootY])
+            {
+                root[rootX]=root[rootY];
             }
+        else
+        {
+            root[rootY]=rootX;
+            rank[rootX]++;
         }
     }
 }
+// TC=O(N)
+//SC=O(N)
