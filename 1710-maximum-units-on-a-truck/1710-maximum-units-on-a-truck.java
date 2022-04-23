@@ -1,6 +1,6 @@
 class Solution {
     public int maximumUnits(int[][] boxTypes, int truckSize) {
-        PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->(b[1]-a[1]));
+         PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->(b[1]-a[1]));
         for(int b[]:boxTypes)
         {
             pq.add(b);
@@ -25,3 +25,5 @@ class Solution {
         return ans;
     }
 }
+// TC: O(Nlog(N))
+// SC:O(N)
