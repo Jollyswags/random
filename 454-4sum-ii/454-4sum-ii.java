@@ -1,6 +1,6 @@
 class Solution {
     public int fourSumCount(int[] nums1, int[] nums2, int[] nums3, int[] nums4) {
-    Arrays.sort(nums1);
+         Arrays.sort(nums1);
         Arrays.sort(nums2);
         Arrays.sort(nums3);
         Arrays.sort(nums4);
@@ -20,6 +20,5 @@ class Solution {
 		}
 		
 		return count;
-        
     }
 }
