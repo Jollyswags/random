@@ -1,6 +1,6 @@
 class Solution {
     public int maxEvents(int[][] events) {
-         if (events == null || events.length == 0) return 0;
+      if (events == null || events.length == 0) return 0;
         final int N = events.length;
         // Sort events by start day.
         Arrays.sort(events, (e1, e2) -> Integer.compare(e1[0], e2[0]));
@@ -27,6 +27,8 @@ class Solution {
                 pq.poll();
             }
         }
-        return res;
+        return res;   
     }
 }
+//nlogn
+//n
