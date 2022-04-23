@@ -14,3 +14,5 @@ class Solution {
      return set.size();
     }
 }
+//nlogk k is max ele of arr
+//n
