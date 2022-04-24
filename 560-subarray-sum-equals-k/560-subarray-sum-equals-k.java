@@ -12,11 +12,7 @@ class Solution {
             {
                 res+=map.get(currsum-sum);
             }
-            Integer c=map.get(currsum);
-            if(c==null)
-                map.put(currsum,1);
-            else
-                map.put(currsum,c+1);
+            map.put(currsum,map.getOrDefault(currsum,0)+1);
         }
         return res;
     }
