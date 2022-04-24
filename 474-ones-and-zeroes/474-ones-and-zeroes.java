@@ -13,3 +13,5 @@ class Solution {
         return dp[M][N];
     }
 }
+//no. of zeroes * no. of ones
+//same
