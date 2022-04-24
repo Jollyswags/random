@@ -25,6 +25,6 @@ class Solution {
             s.push(i);
         }
         
-        return res;
+        return res;  
     }
 }
