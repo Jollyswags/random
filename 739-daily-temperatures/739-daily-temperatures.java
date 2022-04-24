@@ -22,3 +22,5 @@ class Solution {
         return answer;
     }
 }
+//O(N)
+//1
