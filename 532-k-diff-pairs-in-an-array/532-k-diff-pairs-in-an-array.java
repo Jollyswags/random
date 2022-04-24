@@ -1,6 +1,6 @@
 class Solution {
     public int findPairs(int[] nums, int k) {
-          HashMap<Integer, Integer> record = new HashMap<>();
+         HashMap<Integer, Integer> record = new HashMap<>();
         int count = 0;
         for (int i:nums) {
             if (k == 0) {
