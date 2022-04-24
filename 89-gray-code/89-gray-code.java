@@ -11,3 +11,4 @@ class Solution {
   return result;
     }
 }
+//2^n
