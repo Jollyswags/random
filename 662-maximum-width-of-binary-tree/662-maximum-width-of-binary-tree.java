@@ -14,7 +14,7 @@
  * }
  */
 class Solution {
-    HashMap<Integer,Integer> map=new HashMap<>();
+  HashMap<Integer,Integer> map=new HashMap<>();
     int maxwidth=0;
     public int widthOfBinaryTree(TreeNode root) {
         width(root,0,0);
