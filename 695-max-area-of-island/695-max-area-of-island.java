@@ -25,7 +25,7 @@ class Solution {
                                 stack.push(new int[]{nr, nc});
                                 seen[nr][nc] = true;
                             }
-                        }
+                        } 
                     }
                     ans = Math.max(ans, shape);
                 }
@@ -34,3 +34,5 @@ class Solution {
         return ans;
     }
 }
+//RC
+//RC
