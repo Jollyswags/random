@@ -8,10 +8,7 @@ class Solution {
         {
             currsum+=nums[i];
           
-            if(map.containsKey(currsum-sum))
-            {
-                res+=map.get(currsum-sum);
-            }
+           res+=map.getOrDefault(currsum-sum,0);
             map.put(currsum,map.getOrDefault(currsum,0)+1);
         }
         return res;
