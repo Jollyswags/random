@@ -1,5 +1,5 @@
 class Solution {
-       public int shipWithinDays(int[] weights, int days) {
+        public int shipWithinDays(int[] weights, int days) {
         int min = 0, max = 0;
         for(int weight: weights){
             min = Math.max(min, weight);
@@ -29,3 +29,5 @@ class Solution {
         return days;
     }
 }
+//n*log(S-M)  s:sum  M:max ele
+//1
