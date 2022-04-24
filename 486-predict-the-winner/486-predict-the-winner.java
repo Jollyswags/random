@@ -15,3 +15,5 @@ class Solution {
         return dp[nums.length - 1] >= 0;
     }
 }
+//n^2
+//n
