@@ -14,7 +14,9 @@ class Solution {
                 for(int i=0;i<k;i++){
                     chars.pop();
                     combo.pop();
-        }}}
+        }
+    }
+}
 
         StringBuilder sb = new StringBuilder();
         while(!chars.isEmpty()) sb.append(chars.pop());
