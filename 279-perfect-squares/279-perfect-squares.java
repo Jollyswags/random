@@ -22,3 +22,4 @@ class Solution {
     return 3;
 }
 }
+//sqrt(n)
