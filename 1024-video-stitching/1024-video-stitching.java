@@ -20,3 +20,5 @@ class Solution {
         return low >= time ? count : -1;
     }
 }
+//nlogn
+//1
