@@ -12,5 +12,5 @@ class Solution {
         return i-1;
     }
 }
-//n
+//nlogn
 //1
