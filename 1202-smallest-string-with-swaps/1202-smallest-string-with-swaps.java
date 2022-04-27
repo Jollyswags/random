@@ -1,74 +1,81 @@
 class Solution {
     public String smallestStringWithSwaps(String s, List<List<Integer>> pairs) {
-        MyDSU myDSU = new MyDSU(s.length());
-        HashMap<Integer,List<Character>> map = new HashMap<>();
-        for(List<Integer> edge: pairs) {
-            int src = edge.get(0);
-            int des = edge.get(1);
-            myDSU.union(src,des);
-        }
-        for (int i = 0; i < s.length(); i++) {
-            int parent = myDSU.find(i);
-            if(!map.containsKey(parent)) map.put(parent, new ArrayList<>());
-            map.get(parent).add(s.charAt(i));
+        UnionFind uf = new UnionFind(s.length());
+
+        // Iterate over the edges
+        for (List<Integer> edge : pairs) {
+            int source = edge.get(0);
+            int destination = edge.get(1);
+            
+            // Perform the union of end points
+            uf.union(source, destination);
         }
         
-        StringBuilder result = new StringBuilder();
-        
-        for (List<Character> characters : map.values()) {
-            Collections.sort(characters, Collections.reverseOrder());
-        }
-        for (int i = 0; i < s.length(); i++) {
-            List<Character> characters = map.get(myDSU.find(i));
-            char currentMin = characters.remove(characters.size()-1);
-            //System.out.println(currentMin);
-            result.append(currentMin);
+        Map<Integer, List<Integer>> rootToComponent = new HashMap<>();
+        // Group the vertices that are in the same component
+        for (int vertex = 0; vertex < s.length(); vertex++) {
+            int root = uf.find(vertex);
+            // Add the vertices corresponding to the component root
+            rootToComponent.putIfAbsent(root, new ArrayList<>());
+            rootToComponent.get(root).add(vertex);
         }
         
-        return result.toString();
+        // String to store the answer
+        char[] smallestString = new char[s.length()];
+        // Iterate over each component
+        for (List<Integer> indices : rootToComponent.values()) {
+            // Sort the characters in the group
+            List<Character> characters = new ArrayList<>();
+            for (int index : indices) {
+                characters.add(s.charAt(index));
+            }
+            Collections.sort(characters);
+            
+            // Store the sorted characters
+            for (int index = 0; index < indices.size(); index++) {
+                smallestString[indices.get(index)] = characters.get(index);
+            }
+        }
         
+        return new String(smallestString);
     }
 }
 
-class MyDSU {
-    
-    int [] parent, rank;
-    int component;
-    public MyDSU(int size) {
-        parent = new int [size];
-        rank = new int [size];
-        
-        for(int i=0;i<size;i++) {
-            parent[i]=i;
-            rank[i]=0;
+class UnionFind {
+    private int[] root;
+    private int[] rank;
+
+    // Initialize the array root and rank
+    // Each vertex is representative of itself with rank 1
+    public UnionFind(int size) {
+        root = new int[size];
+        rank = new int[size];
+        for (int i = 0; i < size; i++) {
+            root[i] = i;
+            rank[i] = 1;
         }
-        component = size;
     }
-    
+
+    // Get the root of a vertex
     public int find(int x) {
-        if(x == parent[x]) return x;
-        return parent[x] = find(parent[x]);
-    }
-    
-    public boolean union(int x, int y) {
-        int parentX = find(x);
-        int parentY = find(y);
-        
-        if(parentX==parentY) return false;
-        if(rank[parentX]>rank[parentY]) {
-            parent[parentY]=parentX;
-        } else if (rank[parentY]>rank[parentX]) {
-            parent[parentX]=parentY;
-        } else {
-                parent[parentY]=parentX;
-                rank[parentX]++;
+        if (x == root[x]) {
+            return x;
         }
-        component--;
-        return true;
+        return root[x] = find(root[x]);
     }
-    
-    public int getComponent() {
-        return component;
+
+    // Perform the union of two components
+    public void union(int x, int y) {
+        int rootX = find(x);
+        int rootY = find(y);
+        if (rootX != rootY) {
+            if (rank[rootX] >= rank[rootY]) {
+                root[rootY] = rootX;
+                rank[rootX] += rank[rootY];
+            } else {
+                root[rootX] = rootY;
+                rank[rootY] += rank[rootX];
+            }
+        }
     }
-    
 }
