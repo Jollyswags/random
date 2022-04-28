@@ -1,36 +1,36 @@
 class Solution {
+    int dir[][]=new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
     public int minimumEffortPath(int[][] heights) {
-       // we can go with the djikstra here as we need to find the shortest path and take the difference as the weight between two node
-        int row = heights.length;
-        int col = heights[0].length;
-        int [][] directions = new int [][] {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
-        int [][] distance = new int [row][col];
-        for (int i=0; i<row; i++)
-            Arrays.fill(distance[i], Integer.MAX_VALUE);
-        PriorityQueue<int []> minHeap = new PriorityQueue<>((a, b) -> a[0] - b[0]);
-        minHeap.add(new int []{0, 0, 0});
-        // 0th index is distance, 1st index is rowth, 2nd index ins colmth
-        while (!minHeap.isEmpty()) {
-            int [] topOfQueue = minHeap.remove();
-            int dist = topOfQueue[0];
-            int x = topOfQueue[1];
-            int y = topOfQueue[2];
-            if (dist > distance[x][y])
-                continue;
-            if (x == row - 1 && y == col - 1)
-                return dist;
-            for (int [] dir : directions) {
-                int newX = x + dir[0];
-                int newY = y + dir[1];
-                if (newX < 0 || newY < 0 || newX >= row || newY >= col)
-                    continue;
-                int effort = Math.max(dist, Math.abs(heights[newX][newY] - heights[x][y]));
-                if (distance[newX][newY] > effort) {
-                    distance[newX][newY] = effort;
-                    minHeap.add(new int []{distance[newX][newY], newX, newY});
-                }
+        int l=0;
+        int h=1000005;
+        int m=heights.length;
+        int n=heights[0].length;
+        
+        while(l<h){
+            
+            int mid= (l+h)/2;
+            boolean visited[][]=new boolean[m][n];
+            visited[0][0]=true;
+            if(dfs(heights,0,0,visited,mid)){
+                h=mid;
+            }
+            else
+                l=mid+1;
+        }
+        return l;
+    }
+    boolean dfs(int [][]heights,int i,int j,boolean visited[][],int mid){
+        if(i==heights.length-1 && j== heights[0].length-1) return true;
+        for(int d[]:dir){
+            int x=i+d[0];
+            int y=j+d[1];
+            if(x<0 || y<0 || x>=heights.length || y>= heights[0].length || visited[x][y]) continue;
+          
+            if(Math.abs(heights[x][y]-heights[i][j])<=mid) {
+                  visited[x][y]=true;
+                if(dfs(heights,x,y,visited,mid)) return true;
             }
         }
-        return -1; // this is unreachabel code
+        return false;
     }
 }
