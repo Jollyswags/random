@@ -4,7 +4,7 @@ class Solution {
         Arrays.fill(lastSeen, -1);
         
         int[] secLastSeen = new int[26];
-        Arrays.fill(secLastSeen, -1);
+        Arrays.fill(secLastSeen, -1); 
 		
 		int count = 0, res = 0;
 	
