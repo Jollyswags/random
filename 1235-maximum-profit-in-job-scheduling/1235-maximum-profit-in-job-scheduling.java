@@ -41,16 +41,23 @@ class Solution {
 
     private int search(Job[] jobs, int index) {
         int st = 0, end = index - 1;
-        while (st <= end) {
+        while (st <= end) { 
             int mid = (st + end) / 2;
-            if (jobs[mid].ed <= jobs[index].st) {
-                if  (jobs[mid + 1].ed > jobs[index].st){
-                    return mid;} 
-                else{
-                    st = mid + 1;}
+            if (jobs[mid].ed <= jobs[index].st) 
+            {
+                if  (jobs[mid + 1].ed > jobs[index].st)
+                {
+                    return mid;
+                } 
+                else
+                {
+                    st = mid + 1;
+                }
             }
-            else {
-                end = mid - 1;}
+            else 
+            {
+                end = mid- 1;
+            }
         }
         return -1;
     }
