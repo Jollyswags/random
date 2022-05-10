@@ -35,7 +35,7 @@ class Solution {
     private static int upperBound(int[] l, int tar) {
         int lo = 0, hi = l.length - 1;
         while (lo < hi) {
-            final int mid = lo + hi + 1 >>> 1;
+            final int mid =(lo + hi + 1)/2;
             if (l[mid] > tar) {
                 hi = mid - 1;
             } else {
