@@ -7,3 +7,5 @@ class Solution {
         return ans; 
     }
 }
+//n
+//1
