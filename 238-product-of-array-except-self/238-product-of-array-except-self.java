@@ -17,7 +17,7 @@ class Solution {
         for (int i = length - 1; i >= 0; i--) {
 
             answer[i] = answer[i] * R;
-            R *= nums[i];
+            R = R* nums[i];
         }
 
         return answer;
