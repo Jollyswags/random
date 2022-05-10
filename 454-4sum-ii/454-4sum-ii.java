@@ -22,3 +22,5 @@ class Solution {
 		return count;
     }
 }
+//n^2
+//n
