@@ -16,7 +16,8 @@ class Solution {
                 i++;
             }
             int prev = i;
-            while(i<=j && m.size()==K) { //i==j incase of K=1
+            while(i<=j && m.size()==K)
+            { //i==j incase of K=1
                 m.put(A[i], m.get(A[i])-1);
                 if(m.get(A[i])<=0){
                     m.remove(A[i]);
@@ -36,3 +37,5 @@ class Solution {
         return c;
     }
 }
+//n
+//n
