@@ -27,7 +27,7 @@ class Solution {
             int max = nums[right] - nums[mi];
             if (mid < min) {
                 lo = mi + 1;
-            } else if (max < mid){
+            } else if (mid>max){
                 hi = mi - 1;
             } else {
                 pos = mi;
