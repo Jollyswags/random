@@ -39,9 +39,13 @@ class Solution {
                 if(low[v]>disc[u]){
                     criticals.add(Arrays.asList(u,v));
                 }
-            } else if(parent[u]!=v) {
+            } 
+            else if(parent[u]!=v)
+            {
                 low[u] = Math.min(low[u], disc[v]);
             }
         }
     }
 }
+//O(E+V)
+//O(E+V)
