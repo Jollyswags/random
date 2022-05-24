@@ -40,3 +40,5 @@ class Solution {
         return pseudo.next;
     }
 }
+//nlogk
+//n
