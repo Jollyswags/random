@@ -14,3 +14,5 @@ class Solution {
     return res;
     }
 }
+    //n^2
+    //1
