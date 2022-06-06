@@ -8,7 +8,8 @@ class Solution {
                     count++;
                 }
                 record.merge(i, 1, Integer::sum);
-            } else {
+            } 
+            else {
                 if (record.containsKey(i + k) && !record.containsKey(i)) {
                     count++;
                 }
