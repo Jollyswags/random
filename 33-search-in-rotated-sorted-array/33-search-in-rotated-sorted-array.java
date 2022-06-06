@@ -19,3 +19,5 @@ class Solution {
         return -1;
     }
 }
+//logn
+//1
