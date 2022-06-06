@@ -11,7 +11,8 @@ class Solution {
 		dp[0]=true;
 		for(int i=0;i<nums.length;i++){
 			for(int j=t;j>0;j--){
-				if(j>=nums[i]) dp[j]|= dp[j-nums[i]]; 
+				if(j>=nums[i]) 
+                    dp[j]|= dp[j-nums[i]]; 
 			}
 		}
 		return dp[t];
