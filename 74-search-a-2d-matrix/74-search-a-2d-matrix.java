@@ -24,3 +24,5 @@ class Solution {
         return false;  
     }
 }
+//logn
+//1
