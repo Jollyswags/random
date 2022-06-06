@@ -10,7 +10,7 @@ class Solution {
         
         b = Math.max(bs , cs-prices[i]);
         s = Math.max(ss , bs+prices[i]);
-        c = Math.max(ss,cs);
+        c = Math.max(cs,ss);
         
         bs=b;
         ss=s;
