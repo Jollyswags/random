@@ -1,13 +1,16 @@
 class Solution {
-       List<Integer> list = new ArrayList<>();
-    List<List<Integer>> ansList = new ArrayList<>();
-
-    void helper(int[] nums) {
-
-       if(list.size()==nums.length)
-       {
-           ansList.add(new ArrayList<>(list));
-       }
+    List<Integer> list;
+    List<List<Integer>> ans;
+    public List<List<Integer>> permute(int[] nums) {
+        list = new ArrayList<>();
+        ans = new ArrayList<>();
+        helper(nums);
+        return ans;
+    }
+    public void helper(int nums[])
+    {
+        if(list.size()== nums.length)
+            ans.add(new ArrayList<>(list));
         else
         {
             for(int i=0; i<nums.length; i++)
@@ -19,10 +22,6 @@ class Solution {
                 list.remove(list.size()-1);
             }
         }
-    }
-
-    public List<List<Integer>> permute(int[] nums) {
-        helper(nums);
-        return ansList;
+            
     }
 }
