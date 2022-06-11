@@ -25,3 +25,5 @@ private int expandAroundCenter(String s, int left, int right) {
     return R-L-1;
 }
 }
+//n^2
+//1
