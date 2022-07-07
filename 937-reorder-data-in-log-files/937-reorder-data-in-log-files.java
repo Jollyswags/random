@@ -2,7 +2,7 @@ class Solution {
     public String[] reorderLogFiles(String[] logs) {
 
         Comparator<String> myComp = new Comparator<String>() {
-            //@Override
+           
             public int compare(String log1, String log2) {
                 // split each log into two parts: <identifier, content>
                 String[] split1 = log1.split(" ", 2);
@@ -37,5 +37,5 @@ class Solution {
         return logs;
     }
 }
-//TC: O(MNlogN)
-//SC: O(MlogN)
+// TC: O(MNlogN)
+// SC: O(MlogN)
