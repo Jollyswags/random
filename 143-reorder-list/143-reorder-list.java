@@ -9,7 +9,7 @@
  * }
  */
 class Solution {
-  public void reorderList(ListNode head) {
+   public void reorderList(ListNode head) {
         
         ListNode midNode = midNode(head);
         ListNode nextToMid = midNode.next;
