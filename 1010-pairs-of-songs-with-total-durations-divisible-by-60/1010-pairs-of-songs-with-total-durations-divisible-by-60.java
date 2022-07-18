@@ -1,6 +1,6 @@
 class Solution {
     public int numPairsDivisibleBy60(int[] time) {
-      for (int i = 0; i < time.length; i++) {
+         for (int i = 0; i < time.length; i++) {
             time[i] = time[i] % 60;
         }
         int[] map = new int[60];
@@ -14,7 +14,6 @@ class Solution {
             map[t]++;
         }
         return result;
+        
     }
 }
-//n
-//1
