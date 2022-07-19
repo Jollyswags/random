@@ -35,3 +35,5 @@ class Solution {
         return (maxDistance == 0) ? -1 : maxDistance;
     }
 }
+//n*n
+//n
