@@ -9,7 +9,7 @@ class Solution {
 		var map = new HashMap<Integer, Integer>();
 		for (int m: nums1) {
 			for (int n: nums2) {
-				map.compute(m + n, (k, v) -> v == null ? 1: v + 1);
+				map.put(m+n, map.getOrDefault(m+n,0)+1);
 			}
 		}
 		
