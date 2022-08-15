@@ -1,10 +1,10 @@
 class Solution {
-    public boolean isRobotBounded(String inst) {
+    public boolean isRobotBounded(String instructions) {
         int dir[][]=new int[][]{{0,1},{1,0},{0,-1},{-1,0}};
         int x=0;
         int y=0;
         int idx=0;
-        for(char ch: inst.toCharArray())
+        for(char ch: instructions.toCharArray())
         {
             if(ch=='L')
                 idx=(idx+3)%4;
@@ -18,9 +18,6 @@ class Solution {
                 
             }
         }
-        return (x==0 && y==0) || (idx!=0); 
-        
+        return (x==0 && y==0) || (idx!=0);        
     }
 }
-//TC=O(s.length())
-//SC=O(1)
