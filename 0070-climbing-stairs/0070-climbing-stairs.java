@@ -1,5 +1,7 @@
 class Solution {
     public int climbStairs(int n) {
+        
+        //fibonacci series
         if(n==0 || n==1 || n==2)
             return n;
         
@@ -16,3 +18,5 @@ class Solution {
         
     }
 }
+//TC : O(n)
+//SC : O(n)
