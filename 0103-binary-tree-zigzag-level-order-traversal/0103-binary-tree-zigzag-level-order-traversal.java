@@ -23,8 +23,8 @@ class Solution {
     {
         if(root==null)
             return;
-        Deque<TreeNode> queue=new ArrayDeque<>();
-        queue.addFirst(root);
+        Queue<TreeNode> queue=new LinkedList<>();
+        queue.add(root);
         boolean flag=true;
         while(!queue.isEmpty())
         {
@@ -33,15 +33,15 @@ class Solution {
             int i;
             for(i=0;i<size;i++)
             {
-                TreeNode node=queue.removeLast();
+                TreeNode node=queue.poll();
                 if(flag)
                     level.addLast(node.val);
                 else
                     level.addFirst(node.val);
                 if(node.left!=null)
-                    queue.addFirst(node.left);
+                    queue.add(node.left);
                 if(node.right!=null)
-                    queue.addFirst(node.right);
+                    queue.add(node.right);
                 
             }
             flag=!flag;
